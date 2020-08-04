@@ -27,8 +27,10 @@ router.post('/register', validate(signUpValidation), async (req,res)=> {
 
     try {
         const saveUser = await user.save();
+        const token = jwt.sign({userId: saveUser._id}, process.env.TOKEN_SECRET);
         res.json({
-            userId: saveUser._id
+            userId: saveUser._id,
+            token: token
         });
     } catch (error) {
         res.ststus(400).json(error);

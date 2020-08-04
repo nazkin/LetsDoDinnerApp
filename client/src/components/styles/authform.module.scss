@@ -1,0 +1,24 @@
+.authForm{
+    width: 70%;
+}
+.formLabels{
+    font-size: 24px;
+    color: rgb(253, 124, 124);
+    float: left;
+}
+.formInput{
+    background-color: rgba(2, 2, 2, 0.2) !important;
+    color: white !important;
+    border: none !important;
+    border-bottom: 1px solid black !important;
+    margin-top: 3rem;
+ 
+}
+.formInput:focus{
+    box-shadow: inset 0 -1px 0 rgb(167, 97, 97) !important;
+}
+.subBtn{
+    border-radius: 0px !important;
+    width: 25%;
+    margin-top: 3rem;
+}
