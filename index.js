@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 const PORT = 8080;
 dotenv.config();
 const authRoute = require('./routes/auth');
-
+const accountRoute = require('./routes/account');
 const app = express();
 
 
@@ -20,10 +20,10 @@ mongoose.connect(process.env.DB_CONNECTION,
 app.use(cors());
 app.use(express.json());
 
-//This is for validation when logging in a new user and other validations of POST bodies
+//Routes from express router files
 
 app.use('/api/user', authRoute);
-
+app.use('/api/account/', accountRoute);
 
 
 app.listen(PORT, ()=> {

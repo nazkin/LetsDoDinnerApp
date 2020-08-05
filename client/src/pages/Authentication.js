@@ -36,7 +36,7 @@ const Authentication = (props)=> {
             console.log(result.data);
             localStorage.setItem("auth-token", result.data.token);
             localStorage.setItem("auth-user", result.data.userId);
-            history.push('/get-started');
+            history.push('/start');
         } catch (err) {
            setError('Authentication error. Please try again. ' + err);
         }
