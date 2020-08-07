@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
+
 import {useHistory} from 'react-router-dom';
 import axios from 'axios';
 import styles from './styles/authentication.module.scss';
-import AuthForm from '../components/AuthForm'
+import AuthForm from '../components/AuthForm';
+
 
 
 const Authentication = (props)=> {
@@ -31,12 +33,15 @@ const Authentication = (props)=> {
                 name: fullName,
                 email: email,
                 password: password
-            })
-           
-            console.log(result.data);
+            });
+       
             localStorage.setItem("auth-token", result.data.token);
             localStorage.setItem("auth-user", result.data.userId);
-            history.push('/start');
+            console.log(result);
+
+                
+            
+             history.push('/start');
         } catch (err) {
            setError('Authentication error. Please try again. ' + err);
         }

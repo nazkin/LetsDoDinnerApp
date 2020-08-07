@@ -16,7 +16,7 @@
     display:flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-end;
+    align-items:center;
 }
 .uploadForm{
     width: 70%;
@@ -25,8 +25,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 5rem;
-    background-color:  rgba(212, 208, 208, 0.3);
+    margin-top: 3rem;
+
 }
 .formLabel{
     font-size: 24px;
@@ -35,4 +35,26 @@
 }
 .uploadInput{
     width: 100%;
-    background-color:black }
+    background-color:black 
+}
+
+.imgDisplay{
+    height: 15rem;
+    width: 18rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    background-color: transparentize($color: #943a3a, $amount: 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  
+}
+.uploadedImg{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.inputStyle{
+    width: 100% !important;
+}

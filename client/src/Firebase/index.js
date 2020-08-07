@@ -1,6 +1,7 @@
-  const firebase = require('firebase');
+import firebase from 'firebase/app';
+import 'firebase/storage';
   // Your web app's Firebase configuration
-  var firebaseConfig = {
+  const firebaseConfig = {
     apiKey: "AIzaSyAP7ZqM6OfCwSCbMopwgAGaCfVyjqeTzMQ",
     authDomain: "datenight-web.firebaseapp.com",
     databaseURL: "https://datenight-web.firebaseio.com",
@@ -12,3 +13,5 @@
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+
+export default firebaseConfig;

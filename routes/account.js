@@ -26,4 +26,32 @@ router.post('/create', jwtVerify ,async (req, res)=> {
     });
 });
 
+router.post('/upload', jwtVerify, async (req, res)=> {
+
+    const image = new Image({
+        downloadUrl: req.body.downloadUrl,
+        caption: req.body.caption,
+        userId: req.user.userId
+    });
+
+    try {
+        const usrAccount = await Account.findOne({userId: req.user.userId});
+        const savedImage = await image.save();
+        usrAccount.images.push(savedImage);
+        const accountUpdate = await usrAccount.save();
+
+        res.json({
+            message: "Image saved successfully",
+            update: accountUpdate
+        });
+    } catch (error) {
+        res.json({
+            message: 'Error while saving the new image',
+            error
+        });
+    }
+
+
+})
+
 module.exports = router;

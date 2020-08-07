@@ -14,7 +14,7 @@ const FormA = props => {
     const [error, setError] = useState(null);
 
   
-    const token = localStorage.getItem('auth-token');
+   
     //Input handlers*************************************************************************
     const nickChangeHandler = (e) => {
         setNickname(e.target.value);
@@ -56,9 +56,10 @@ const FormA = props => {
                     ageMin: ageMin
                 },
                 headers: {
-                    'auth-token': token
+                    'auth-token': props.token
                 }
-            })
+            });
+            props.nextForm();
             
         } catch (err) {
             setError(err);

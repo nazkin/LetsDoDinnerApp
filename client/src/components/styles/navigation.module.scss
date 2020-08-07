@@ -1,0 +1,103 @@
+
+
+.hoverable {
+  display: inline-block;
+  backface-visibility: hidden;
+  vertical-align: middle;
+  position: relative;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  transform: translateZ(0);
+  transition-duration: .3s;
+  transition-property: transform;
+  font-size: 28px;
+  color: white;
+}
+
+.hoverable:before {
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  content: '';
+  top: 100%;
+  left: 5%;
+  height: 10px;
+  width: 90%;
+  opacity: 0;
+  background: -webkit-radial-gradient(center, ellipse, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 80%);
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 80%);
+  /* W3C */
+  transition-duration: 0.3s;
+  transition-property: transform, opacity;
+}
+
+.hoverable:hover, .hoverable:active, .hoverable:focus {
+  transform: translateY(-5px);
+  color: linen;
+}
+
+.hoverable:hover:before, .hoverable:active:before, .hoverable:focus:before {
+  opacity: 1;
+  transform: translateY(-5px);
+}
+
+@keyframes bounce-animation {
+  16% {
+    -webkit-transform: translateY(8px);
+    transform: translateY(8px);
+  }
+  33% {
+    -webkit-transform: translateY(-6px);
+    transform: translateY(-6px);
+  }
+  49% {
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+  }
+  66% {
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+  }
+  83% {
+    -webkit-transform: translateY(1px);
+    transform: translateY(1px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+.bounce {
+  animation-name: bounce-animation;
+  animation-duration: 2s;
+}
+
+
+
+/*everything below here is just setting up the page, so dont worry about it */
+
+
+nav {
+  background-color:  rgba(163, 36, 36, 0.5) !important;
+  text-transform: uppercase!important;
+  color: white;
+  width: 100%!important;
+  display: flex!important;
+  flex-direction: row!important;
+  justify-content: center!important;
+  font-weight: 600 !important;
+  text-align: center !important;
+}
+
+.navElement{
+  margin-left: 3em;
+  margin-right: 3em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  cursor: pointer;
+  transition: .5s color ease-in-out;
+}
+
+.page-title {
+  opacity: .75 !important;
+}
+
