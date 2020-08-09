@@ -52,6 +52,44 @@ router.post('/upload', jwtVerify, async (req, res)=> {
     }
 
 
+});
+
+router.get('/info', jwtVerify, async (req, res)=> {
+    try {
+        const account = await Account.findOne({userId: req.user.userId});
+        res.json({
+            message: 'Account retrieved successfully',
+            account: account
+        });
+
+    } catch (error) {
+        res.json({
+            message: "error retrieving users account: ",
+            err: error 
+        });
+    }
+
+   
+
+
+});
+
+router.post('/update/:id', jwtVerify, async (req, res) => {
+    const update = req.body.account;
+    try {
+        const updatedAccount = await Account.findByIdAndUpdate(req.params.id, update);
+        res.json({
+            message: "Updated Successfully",
+            data: updatedAccount
+        })
+    } catch (error) {
+        res.json({
+            error: error
+        })
+    }
+
+
+
 })
 
 module.exports = router;

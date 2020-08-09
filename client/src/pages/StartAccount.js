@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import styles from './styles/accountStart.module.scss';
-import FormB from '../components/AccountFormB';
-import FormA from '../components/AccountFormA';
+import FormB from '../components/Forms/AccountFormB';
+import FormA from '../components/Forms/AccountFormA';
 import axios from 'axios';
 
 const StartAccount = props => {
     const [isFormB, setIsFormB] = useState(false);
-    const token = localStorage.getItem('auth-token');
+    const token = sessionStorage.getItem('auth-token');
     const nextForm = () => {
         setIsFormB(true);
     }

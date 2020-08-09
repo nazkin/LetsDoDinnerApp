@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import firebase from 'firebase';
-import storage from '../Firebase/index';
+import storage from '../../Firebase/index';
 import axios from 'axios';
-import imgPlaceholder from '../images/camera.png';
-import styles from './styles/formtwo.module.scss';
+import imgPlaceholder from '../../images/camera.png';
+import styles from '../styles/formtwo.module.scss';
 
 const FormB = props => {
     let history = useHistory();
@@ -102,24 +102,12 @@ const FormB = props => {
             <div className={'col-md-8 '+ styles.formCol}>
                 <h1 className="">Step 2: Upload images of yourself</h1>
                 {uploadForm}
-                {/* <form onSubmit={storeImageHandler} className={styles.uploadForm}>
-                        <div className={"form-group "}>
-                            <label className={styles.formLabel}>Upload a photo</label>
-                            <input onChange={fileChangeHandler} type="file" className={"form-control-file " + styles.uploadInput}  />
-                        </div>
-                        <button type="submit" className="btn btn-info">Upload</button>
-                </form> */}
+
                 <div className={styles.imgDisplay}>
                    {!imageUrl ? <img src={imgPlaceholder} alt="uploaded image placeholder" /> : <img className={styles.uploadedImg} src={imageUrl} alt="uploaded image placeholder" /> }
                 </div>
                 {saveForm}
-                {/* <form className={styles.uploadForm}>
-                    <div className={"form-group "+ styles.inputStyle}>
-                        <label className={styles.formLabel}>Add a clever caption</label>
-                        <input type="text" className={"form-control " } />
-                    </div>
-                    <button className="btn btn-success" type="submit">Save Result</button>
-                </form> */}
+
             </div>
         </div>
     )

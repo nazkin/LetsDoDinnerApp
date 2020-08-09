@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-
 import {useHistory} from 'react-router-dom';
 import axios from 'axios';
 import styles from './styles/authentication.module.scss';
-import AuthForm from '../components/AuthForm';
+import AuthForm from '../components/Forms/AuthForm';
 
 
 
@@ -35,8 +34,8 @@ const Authentication = (props)=> {
                 password: password
             });
        
-            localStorage.setItem("auth-token", result.data.token);
-            localStorage.setItem("auth-user", result.data.userId);
+            sessionStorage.setItem("auth-token", result.data.token);
+         
             console.log(result);
 
                 
@@ -57,8 +56,7 @@ const Authentication = (props)=> {
             password: password
         })
         console.log(result.data);
-        localStorage.setItem("auth-token", result.data.token);
-        localStorage.setItem("auth-user", result.data.userId);
+        sessionStorage.setItem("auth-token", result.data.token);
         history.push('/');
     }
     const nameInputHandler = (e) => {

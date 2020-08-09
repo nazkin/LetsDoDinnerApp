@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom'
 const ProtectedRoute = (props) => {
 
     const Component = props.component;
-    const isAuthenticated = localStorage.getItem('auth-token');
+    const isAuthenticated = sessionStorage.getItem('auth-token');
 
     return isAuthenticated ? (
         <Component />

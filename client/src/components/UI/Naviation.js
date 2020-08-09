@@ -1,10 +1,8 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import styles from "./styles/navigation.module.scss";
+import styles from "../styles/navigation.module.scss";
 
 const Navbar = () => {
-
-    
 
     return (
             <nav className="navbar navbar-expand-lg">

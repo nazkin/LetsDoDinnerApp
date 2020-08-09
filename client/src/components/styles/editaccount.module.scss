@@ -1,0 +1,29 @@
+.mainRow{
+    background-color:rgba(56,23,23,0.2);
+    padding: 2rem;
+    
+}
+.imgCol{
+    height: 80vh;
+    background-image: url('../../images/joinus.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.formCol{
+    padding: 1rem;
+    color: whitesmoke;
+}
+.accountForm{
+    width: 70%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+.formLabel{
+    font-size: 24px;
+    color: rgb(253, 124, 124);
+   
+}
+.textArea{
+ width: 100%;
+}

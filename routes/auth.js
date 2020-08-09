@@ -30,9 +30,9 @@ router.post('/register', validate(signUpValidation), async (req,res)=> {
         
         const saveUser = await user.save();
         const token = jwt.sign({userId: saveUser._id}, process.env.TOKEN_SECRET);
+    
 
         res.json({
-            userId: saveUser._id,
             token: token,
         });
     } catch (error) {
@@ -55,7 +55,6 @@ router.post('/login',validate(logInValidation), async (req,res)=> {
     const token = jwt.sign({userId: userInfo._id}, process.env.TOKEN_SECRET);
     res.header('auth-token', token).json({
         token: token,
-        userId: userInfo._id
     });
    
 

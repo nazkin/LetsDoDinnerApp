@@ -1,5 +1,5 @@
 import React from 'react'
-import Navigation from './Naviation';
+import Navigation from './UI/Naviation';
 import styles from './styles/template.module.scss';
 
 const Template = (props) => {
