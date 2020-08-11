@@ -56,7 +56,7 @@ router.post('/upload', jwtVerify, async (req, res)=> {
 
 router.get('/info', jwtVerify, async (req, res)=> {
     try {
-        const account = await Account.findOne({userId: req.user.userId});
+        const account = await Account.findOne({userId: req.user.userId}).populate('images');
         res.json({
             message: 'Account retrieved successfully',
             account: account
