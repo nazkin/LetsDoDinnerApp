@@ -1,0 +1,51 @@
+.uploadForm{
+    width: 70%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3rem;
+
+}
+.formLabel{
+    font-size: 24px;
+    color: rgb(253, 124, 124);
+   
+}
+.uploadInput{
+    width: 100%;
+    background-color: rgb(238, 190, 190);
+}
+
+.imgDisplay{
+    height: 15rem;
+    width: 18rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-right: 2rem;
+    padding: 5rem 8rem;
+    border: 1px dotted grey;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+.uploadedImg{
+    width: 18rem;
+    height: 15rem;
+    object-fit: cover;
+}
+.inputStyle{
+    width: 100% !important;
+}
+
+.uploadContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  
+}

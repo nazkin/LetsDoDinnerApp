@@ -1,0 +1,27 @@
+.updateRow{
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+.images{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.uploadSection{
+    width: 90%;
+    align-items: center;
+}
+
+.formTitle{
+    color: rgb(187, 61, 61);
+    font-size: 42px;
+    font-weight: 100;
+}
+.hLine{
+    background-color: rgb(187, 61, 61);
+    width: 95%;
+}
