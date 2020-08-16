@@ -1,8 +1,10 @@
-const router = require('express').Router();
-const jwtVerify = require('../middleware/jwtVerify');
-const User = require('../models/User');
-const Account = require('../models/Account');
-const Image = require('../models/Image');
+const router = require('express').Router()
+const jwtVerify = require('../middleware/jwtVerify')
+const User = require('../models/User')
+const Account = require('../models/Account')
+const Image = require('../models/Image')
+
+//User creates account
 
 router.post('/create', jwtVerify ,async (req, res)=> {
     const account = new Account({
@@ -17,7 +19,7 @@ router.post('/create', jwtVerify ,async (req, res)=> {
         country: req.body.country,
         region: req.body.region,
         city: req.body.city
-    });
+    })
 
     const savedAccount = await account.save();
     res.json({
@@ -26,8 +28,10 @@ router.post('/create', jwtVerify ,async (req, res)=> {
             accountId: savedAccount._id,
             userId: savedAccount.userId,
         }
-    });
-});
+    })
+})
+
+//User uploads photographs to their account
 
 router.post('/upload', jwtVerify, async (req, res)=> {
 
@@ -38,49 +42,48 @@ router.post('/upload', jwtVerify, async (req, res)=> {
     });
 
     try {
-        const usrAccount = await Account.findOne({userId: req.user.userId});
-        const savedImage = await image.save();
-        usrAccount.images.push(savedImage);
-        const accountUpdate = await usrAccount.save();
+        const usrAccount = await Account.findOne({userId: req.user.userId})
+        const savedImage = await image.save()
+        usrAccount.images.push(savedImage)
+        const accountUpdate = await usrAccount.save()
 
         res.json({
             message: "Image saved successfully",
             update: accountUpdate
-        });
+        })
     } catch (error) {
         res.json({
             message: 'Error while saving the new image',
             error
-        });
+        })
     }
 
 
-});
+})
 
+//User retrieves their own account to display information
 router.get('/info', jwtVerify, async (req, res)=> {
     try {
-        const account = await Account.findOne({userId: req.user.userId}).populate('images');
+        const account = await Account.findOne({userId: req.user.userId}).populate('images')
         res.json({
             message: 'Account retrieved successfully',
             account: account
-        });
+        })
 
     } catch (error) {
         res.json({
             message: "error retrieving users account: ",
             err: error 
-        });
-    }
-
-   
+        })
+    }  
 
 
-});
-
+})
+//User updates information in their own account 
 router.post('/update/:id', jwtVerify, async (req, res) => {
     const update = req.body.account;
     try {
-        const updatedAccount = await Account.findByIdAndUpdate(req.params.id, update);
+        const updatedAccount = await Account.findByIdAndUpdate(req.params.id, update)
         res.json({
             message: "Updated Successfully",
             data: updatedAccount
@@ -90,9 +93,24 @@ router.post('/update/:id', jwtVerify, async (req, res) => {
             error: error
         })
     }
-
-
-
 })
 
-module.exports = router;
+//Retrieving users that have recently been logged in
+
+router.get('/recent-users', jwtVerify, async (req, res) => { //******THE ALGORITHM IS NOT COMPLETE*/
+    try{
+        const accounts = await Account.find({}).populate('images')
+        res.json({
+            message: "Recent accounts retrieved",
+            accounts: accounts
+        })
+    } catch(err) {
+        console.log(err);
+        res.json({
+            message: "Error retrieving recently active accounts",
+            error: err
+        })
+    }
+})
+
+module.exports = router

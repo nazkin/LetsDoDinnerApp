@@ -1,0 +1,32 @@
+.userImgRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.userCol{
+    cursor: pointer;
+    object-fit: cover;
+    overflow: hidden;
+    background-color: snow;
+    border: 1px solid rgb(187, 61, 61);
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(78, 0, 12);
+    font-weight: 500;
+}
+.userCol:hover{
+   opacity: 0.8;
+   box-shadow: 1px 1px 2px 3px #cdcdcd;
+}
+.userImg{
+    width: auto;
+    height: 18rem;
+   
+}
+.userNick{
+    background-color: rgb(240, 116, 135);
+    color: rgb(78, 0, 12);
+    width: 100%;
+}
