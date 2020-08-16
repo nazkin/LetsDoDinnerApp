@@ -13,7 +13,10 @@ router.post('/create', jwtVerify ,async (req, res)=> {
         dob: new Date(req.body.dob),
         interestedIn: req.body.interestedIn,
         matchAgeMax: parseInt(req.body.ageMax),
-        matchAgeMin: parseInt(req.body.ageMin)
+        matchAgeMin: parseInt(req.body.ageMin),
+        country: req.body.country,
+        region: req.body.region,
+        city: req.body.city
     });
 
     const savedAccount = await account.save();

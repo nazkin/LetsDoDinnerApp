@@ -11,6 +11,9 @@ const FormA = props => {
     const [interest, setInterest] = useState("");
     const [ageMax, setAgeMax] = useState(60);
     const [ageMin, setAgeMin] = useState(18);
+    const [country, setCountry] = useState("");
+    const [region, setRegion] = useState("");
+    const [city, setCity] = useState("");
     const [error, setError] = useState(null);
 
   
@@ -37,6 +40,15 @@ const FormA = props => {
     const ageMinHandler = (e) => {
         setAgeMin(e.target.value);
     }
+    const countryChangeHandler = (e) => {
+        setCountry(e.target.value);
+    }
+    const regionChangeHandler = (e) => {
+        setRegion(e.target.value);
+    }
+    const cityChangeHandler = (e) => {
+        setCity(e.target.value);
+    }
     //Input handlers*************************************************************************
 
     //Form Submission
@@ -53,7 +65,10 @@ const FormA = props => {
                     dob : dob,
                     interestedIn: interest,
                     ageMax: ageMax,
-                    ageMin: ageMin
+                    ageMin: ageMin,
+                    country: country,
+                    region: region,
+                    city: city
                 },
                 headers: {
                     'auth-token': props.token
@@ -115,6 +130,20 @@ const FormA = props => {
                         <div className={"col-md-2"}>
                             <label className={styles.formLabel}>Age(max)</label>
                             <input value={ageMax} onChange={(e)=> ageMaxHandler(e)} className={"form-control "} type="number" min={18} max={100}/>
+                        </div>
+                    </div>
+                    <div className="form-row align-items-center justify-content-between my-3">
+                        <div className={"col-md-3"}>
+                            <label className={styles.formLabel}>Country</label>
+                            <input className={"form-control "} type="text" value={country} onChange={(e)=> countryChangeHandler(e)}/>
+                        </div>
+                        <div className={"col-md-3"}>
+                            <label className={styles.formLabel}>Region</label>
+                            <input className={"form-control "} type="text" value={region} onChange={(e)=> regionChangeHandler(e)}/>
+                        </div>
+                        <div className={"col-md-3"}>
+                            <label className={styles.formLabel}>City</label>
+                            <input className={"form-control "} type="text" value={city} onChange={(e)=> cityChangeHandler(e)}/>
                         </div>
                     </div>
                     <button type="submit" className={"btn btn-outline-info btn-lg mt-5"}>Next</button>

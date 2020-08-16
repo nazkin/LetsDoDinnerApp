@@ -19,6 +19,10 @@ const userSchema = new Schema({
     date:{
         type: Date,
         default: Date.now
+    },
+    lastLogin:{
+        type: Date,
+        default: Date.now
     }
 });
 

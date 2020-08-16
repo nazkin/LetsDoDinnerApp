@@ -8,6 +8,9 @@ const EditForm = (props) => {
     const [interest, setInterest] = useState(props.interest);
     const [maxAge, setMaxAge] = useState(props.maxAge);
     const [minAge, setMinAge] = useState(props.minAge);
+    const [city, setCity] = useState(props.city);
+    const [country, setCountry] = useState(props.country);
+    const [region , setRegion] = useState(props.region);
 
 
     const nickChangeHandler = (e) => {
@@ -25,6 +28,15 @@ const EditForm = (props) => {
     }
     const ageMinHandler = (e) => {
         setMinAge(e.target.value);
+    }
+    const countryChangeHandler = (e) => {
+        setCountry(e.target.value);
+    }
+    const regionChangeHandler = (e) => {
+        setRegion(e.target.value);
+    }
+    const cityChangeHandler = (e) => {
+        setCity(e.target.value);
     }
 
     const editFormSubmission = async (e) => {
@@ -52,7 +64,7 @@ const EditForm = (props) => {
     }
 
     return(
-        <form onSubmit={(e) =>editFormSubmission(e)} className={styles.accountForm}> 
+    <form onSubmit={(e) =>editFormSubmission(e)} className={styles.accountForm}> 
         <div className={"form-group "}>
             <label className={styles.formLabel}>Nickname</label>
             <input className={"form-control "} type="text" value={nick} onChange={(e)=> nickChangeHandler(e)}/>
@@ -81,6 +93,20 @@ const EditForm = (props) => {
             <div className={"col-md-2"}>
                 <label className={styles.formLabel}>Age(max)</label>
                 <input value={maxAge} onChange={(e)=> ageMaxHandler(e)} className={"form-control "} type="number" min={18} max={100}/>
+            </div>
+        </div>
+        <div className="form-row align-items-center justify-content-between my-3">
+            <div className={"col-md-3"}>
+                <label className={styles.formLabel}>Country</label>
+                <input className={"form-control "} type="text" value={country} onChange={(e)=> countryChangeHandler(e)}/>
+            </div>
+            <div className={"col-md-3"}>
+                <label className={styles.formLabel}>Region</label>
+                <input className={"form-control "} type="text" value={region} onChange={(e)=> regionChangeHandler(e)}/>
+            </div>
+            <div className={"col-md-3"}>
+                <label className={styles.formLabel}>City</label>
+                <input className={"form-control "} type="text" value={city} onChange={(e)=> cityChangeHandler(e)}/>
             </div>
         </div>
         <button type="submit" className={"btn btn-outline-info btn-lg mt-5"}>Save Changes</button>

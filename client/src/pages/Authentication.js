@@ -31,17 +31,15 @@ const Authentication = (props)=> {
             const result = await axios.post('http://localhost:8080/api/user/register', {
                 name: fullName,
                 email: email,
-                password: password
+                password: password,
+              
             });
-       
+            console.log(result);
             sessionStorage.setItem("auth-token", result.data.token);
          
-            console.log(result);
-
-                
-            
              history.push('/start');
         } catch (err) {
+            console.log(err);
            setError('Authentication error. Please try again. ' + err);
         }
 
@@ -51,9 +49,11 @@ const Authentication = (props)=> {
         if(!hasAccount){
             return;
         }
+      
         const result = await axios.post('http://localhost:8080/api/user/login', {
             email: email,
-            password: password
+            password: password,
+         
         })
         console.log(result.data);
         sessionStorage.setItem("auth-token", result.data.token);

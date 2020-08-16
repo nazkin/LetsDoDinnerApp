@@ -33,11 +33,32 @@ const accountSchema = new Schema({
         type: Number,
         default: 18
     },
+    country: {
+        type: String,
+    },
+    region: {
+        type: String,
+    },
+    city: {
+        type: String,
+    },
     images:  [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: `Image`
         }   
+    ],
+    chats: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Chat'
+        }
+    ],
+    matches: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
     ]
 
 });

@@ -23,19 +23,19 @@ router.post('/register', validate(signUpValidation), async (req,res)=> {
     const user = new User({
         name: req.body.name,
         email: req.body.email,
-        password: passwordHash
+        password: passwordHash,
     });
 
     try {
         
         const saveUser = await user.save();
         const token = jwt.sign({userId: saveUser._id}, process.env.TOKEN_SECRET);
-    
 
         res.json({
             token: token,
         });
     } catch (error) {
+        console.log(error);
         res.status(400).json(error);
     }
 });
@@ -45,6 +45,10 @@ router.post('/login',validate(logInValidation), async (req,res)=> {
     //Check log in info
     const userInfo  = await User.findOne({email: req.body.email});
     const validPass = await bcrypt.compare(req.body.password, userInfo.password);
+    
+    //Changing the last log-in date
+    userInfo.lastLogin = Date.now();
+    const userUpdate = await userInfo.save();
 
     if(!userInfo || !validPass){
         res.status(400).json({

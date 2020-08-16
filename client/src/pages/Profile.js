@@ -10,6 +10,7 @@ const Profile = (props) => {
     const [accountInfo, setAccountInfo] = useState(null);
     const [loading, setLoading] = useState(false);
     const [refresh, setRefresh] = useState(false);
+    const [isUpload, setIsUpload] = useState(false);
 
     const token = sessionStorage.getItem('auth-token');
 
@@ -36,12 +37,21 @@ const Profile = (props) => {
     const pageRefreshHandler = () => {
         setRefresh(!refresh);
     }
+    const toggleUpload = () => {
+        setIsUpload(!isUpload);
+    }
 
     let images = null;
+    let uploadSection = null;
     if(accountInfo){
         images = accountInfo.images.map(image => {
             return <ImageCard key={image._id} url={image.downloadUrl} caption={image.caption} /> 
         });
+    }
+    if(isUpload){
+        uploadSection = (<div className={"card " + styles.uploadSection}>
+                            <FileUpload refreshAccount={pageRefreshHandler} token={token} />
+                        </div>)
     }
     return(
         <Template>
@@ -50,22 +60,21 @@ const Profile = (props) => {
                     <h1 className={styles.formTitle}>General Information</h1>
                     <hr className={styles.hLine}/>
                     {/* display the form */}
-                   {!accountInfo ? null : <EditAccountForm id={accountInfo._id} nickname={accountInfo.nickname} desc={accountInfo.description} interest={accountInfo.interestedIn} minAge={accountInfo.matchAgeMin} maxAge={accountInfo.matchAgeMax} />}
+                   {!accountInfo ? null : <EditAccountForm country={accountInfo.country} city={accountInfo.city} region={accountInfo.region} id={accountInfo._id} nickname={accountInfo.nickname} desc={accountInfo.description} interest={accountInfo.interestedIn} minAge={accountInfo.matchAgeMin} maxAge={accountInfo.matchAgeMax} />}
                 </div>
-                <div className={"col-lg-6 "}>
+                <div className={"col-lg-6 "+ styles.imgColumn }>
                     {/* display the images */}
-                    <div className={styles.images}>
+                    <div className={"row "+styles.images}>
                         {images}
                     </div>
-                    
+                   <div className="row my-2 d-flex justify-content-center">
+                     <button onClick={toggleUpload} className={"btn btn-danger btn-lg float-right " + styles.toggleBtn}>+</button>
+                   </div>
                     <div className={"row d-flex justify-content-center my-2"}>
-                        <div className={"card " + styles.uploadSection}>
-                            <FileUpload refreshAccount={pageRefreshHandler} token={token} />
-                        </div>
+                        {uploadSection}
                     </div>
                 </div>
-            </div>
-            
+            </div>        
         </Template>
     )
 }
