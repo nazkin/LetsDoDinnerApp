@@ -9,6 +9,7 @@ import Search from './pages/SearchUsers';
 import StartAccount from './pages/StartAccount';
 import Connections from './pages/Connections'
 import ProtectedRoute from './components/ProtectedRoute';
+import ProfileDisplay from './pages/ProfileDisplay'
 import './App.css';
 
 function App() {
@@ -21,11 +22,14 @@ function App() {
           </Route>
           <ProtectedRoute exact={true} path='/' component={Home} />
           <ProtectedRoute path='/start' component={StartAccount} />
-          <ProtectedRoute path='/profile' component={Profile} />
+          <ProtectedRoute exact={true} path='/profile' component={Profile} />
           {/* <ProtectedRoute path='/messages' component={Messages} />
           <ProtectedRoute path='/match' component={MatchUp} /> */}
           <ProtectedRoute path='/connections' component={Connections} />
           <ProtectedRoute path='/user-search' component={Search} />
+          <Route path="/account/:id">
+            <ProfileDisplay />
+          </Route>
         </Switch>
       </Router>
   );

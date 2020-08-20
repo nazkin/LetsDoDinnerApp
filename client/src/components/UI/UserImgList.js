@@ -1,7 +1,13 @@
 import React from 'react'
-import styles from '../styles/UI/userImgList.module.scss';
+import styles from '../styles/UI/index.module.scss';
+import {useHistory} from 'react-router-dom'
 
 const UserImgList = (props) => {
+    let history = useHistory()
+
+    const viewUserHandler = (id) =>{
+        history.push(`/account/${id}`)
+    }
 
     const userList = props.users.map(user=> {
         return (
@@ -10,6 +16,7 @@ const UserImgList = (props) => {
                 
                     <h3 className={styles.userNick}>{user.nickname}</h3>
                     <h4>{user.city}, {user.region}</h4>
+                    <button onClick={()=> viewUserHandler(user._id)} className="btn btn-dark">View</button>
                
             </div>
         )
