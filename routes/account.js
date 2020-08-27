@@ -44,6 +44,7 @@ router.post('/upload', jwtVerify, async (req, res)=> {
     try {
         const usrAccount = await Account.findOne({userId: req.user.userId})
         const savedImage = await image.save()
+        usrAccount.avatar = savedImage.downloadUrl
         usrAccount.images.push(savedImage)
         const accountUpdate = await usrAccount.save()
 
@@ -64,10 +65,12 @@ router.post('/upload', jwtVerify, async (req, res)=> {
 //User retrieves their own account to display information
 router.get('/info', jwtVerify, async (req, res)=> {
     try {
-        const account = await Account.findOne({userId: req.user.userId}).populate('images')
+        const account = await Account.findOne({userId: req.user.userId}).populate('images').populate('invitations')
+
         res.json({
             message: 'Account retrieved successfully',
-            account: account
+            account: account,
+            
         })
 
     } catch (error) {
@@ -78,7 +81,27 @@ router.get('/info', jwtVerify, async (req, res)=> {
     }  
 
 
-})
+});
+//Retrieving the account of a user whose account is currently being viewed 
+router.get('/info/:id', jwtVerify, async (req, res)=> {
+    try {
+        const account = await Account.findOne({_id: req.params.id}).populate('images')
+ 
+        res.json({
+            message: 'Account retrieved successfully',
+            account: account,
+
+        })
+
+    } catch (error) {
+        res.json({
+            message: "error retrieving users account: ",
+            err: error 
+        })
+    }  
+
+
+});
 //User updates information in their own account 
 router.post('/update/:id', jwtVerify, async (req, res) => {
     const update = req.body.account;
@@ -99,7 +122,7 @@ router.post('/update/:id', jwtVerify, async (req, res) => {
 
 router.get('/recent-users', jwtVerify, async (req, res) => { //******THE ALGORITHM IS NOT COMPLETE*/
     try{
-        const accounts = await Account.find({}).populate('images')
+        const accounts = await Account.find({})
         res.json({
             message: "Recent accounts retrieved",
             accounts: accounts

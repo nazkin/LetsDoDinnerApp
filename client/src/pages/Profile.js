@@ -24,7 +24,7 @@ const Profile = (props) => {
                 'auth-token': token
             }
         }).then(res=> {
-            console.log(res.data.account);
+            console.log(res);
             setAccountInfo(res.data.account);
             setLoading(false);
         }).catch(err => {

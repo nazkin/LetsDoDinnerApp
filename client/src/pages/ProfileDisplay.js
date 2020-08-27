@@ -30,6 +30,25 @@ const ProfileDisplay = () =>{
            console.log(err);
        })
     }, []);
+
+    //Send invite handler
+
+    const inviteConnectionHandler = async () => {
+        try {
+            const result = await axios({
+                method: "POST", 
+                url: `http://localhost:8080/api/send/invitation/${accountId}`,
+                headers:{
+                    'auth-token': token
+                } 
+            });
+            console.log(result)
+        } catch (error) {
+            console.log(error)
+        }
+        return true;
+    }
+
     //When data is being retrieved dont load anything
     if(loading || !account){
         return(
@@ -43,7 +62,7 @@ const ProfileDisplay = () =>{
                 <div className="row p-5">
                     <div className="col-md-4">
                         <Title title={account.nickname} />
-                        <button className="btn btn-danger mx-5 my-5">Invite Connection</button>
+                        <button onClick={inviteConnectionHandler} className="btn btn-danger mx-5 my-5">Invite Connection</button>
                     </div>
                     <div className="col-md-8">
                         <UsersImages images={account.images}/>

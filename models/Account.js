@@ -42,6 +42,9 @@ const accountSchema = new Schema({
     city: {
         type: String,
     },
+    avatar: {
+        type: String 
+    },
     images:  [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -54,10 +57,10 @@ const accountSchema = new Schema({
             ref: 'Chat'
         }
     ],
-    matches: [
+    invitations: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'Account'
         }
     ]
 
