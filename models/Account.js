@@ -62,8 +62,13 @@ const accountSchema = new Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Account'
         }
-    ]
-
+    ],
+    connections:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Account'
+        }
+    ],
 });
 
 const Account = new mongoose.model('Account', accountSchema);

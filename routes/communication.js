@@ -3,6 +3,7 @@ const jwtVerify = require('../middleware/jwtVerify')
 const User = require('../models/User')
 const Account = require('../models/Account')
 const Image = require('../models/Image')
+const Chat = require('../models/Chat')
 
 
 //Connection invitation
@@ -26,11 +27,21 @@ router.post('/invitation/:id', jwtVerify, async (req, res)=> {
 })
 //Connection accept
 
-router.post('/accept/:id', jwtVerify, async (req, res)=> {
+router.post('/invitation/accept/:id', jwtVerify, async (req, res)=> {
     const recipient = req.params.id;//This id is retrieved from the invitation request
 
     const recipientAccount = await Account.findById(recipient)
     const senderAccount = await Account.findOne({userId: req.user.userId})
+
+    recipientAccount.connections.push(senderAccount)
+    senderAccount.connections.push(recipientAccount)
+
+    await recipientAccount.save()
+    await senderAccount.save()
+
+    res.json({
+        message: "A connection between both users has been established successfully"
+    })
 
     //Create a chat which signifies a connection made
 

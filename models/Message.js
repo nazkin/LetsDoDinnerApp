@@ -12,9 +12,9 @@ const messageSchema = new Schema({
         type: Date,
         default: Date.now()
     },
-    userId:{
+    chatId:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User' 
+        ref: 'Chat' 
     }
 });
 

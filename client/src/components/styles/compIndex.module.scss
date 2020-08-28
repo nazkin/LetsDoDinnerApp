@@ -1,0 +1,81 @@
+// Invitations component
+
+.invitationContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 12rem;
+}
+.invitationImgBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    font-size: 20px;
+    color: rgb(100, 29, 29);
+    cursor: pointer;
+
+}
+.invitationImgBox:hover{
+    background-color: rgb(252, 240, 240);
+  
+    
+}
+.invitationImg{
+    width: 7rem; 
+    height: 7rem; 
+    border: 2px solid rgb(243, 76, 76);
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.invitationBtnBox{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.invitationAccept{
+    height: 1.5rem;
+    width: 50%;
+    background-color: rgb(109, 182, 127);
+    color: snow;
+    text-align: center;
+    cursor: pointer;
+}
+.invitationAccept:hover{
+    opacity: 0.7;
+}
+
+.invitationDecline{
+    height: 1.5rem;
+    width: 50%;
+    background-color: rgb(182, 109, 109);
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+.invitationDecline:hover{
+    opacity: 0.7;
+}
+
+
+// connectionList
+
+.connectBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 15rem;
+}
+.connectAvatar{
+    width: 10rem; 
+    height: 10rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgb(243, 76, 76);
+}
