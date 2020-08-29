@@ -5,12 +5,12 @@ const messageSchema = new Schema({
     sentBy: {
         type: String
     },
-    receivedBy: {
-        type: String
-    },
     date: {
         type: Date,
         default: Date.now()
+    },
+    body:{
+        type: String
     },
     chatId:{
         type: mongoose.Schema.Types.ObjectId,

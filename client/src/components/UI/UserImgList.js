@@ -11,12 +11,12 @@ const UserImgList = (props) => {
 
     const userList = props.users.map(user=> {
         return (
-            <div className={"col-sm-11 col-md-2 my-3 "+styles.userCol} key={user._id}>
+            <div onClick={()=> viewUserHandler(user._id)}  className={"col-sm-11 col-md-2 my-3 "+styles.userCol} key={user._id}>
                 <img className={styles.userImg} src={user.avatar} alt="Active users profile picture" />
                 
                     <h3 className={styles.userNick}>{user.nickname}</h3>
                     <h4>{user.city}, {user.region}</h4>
-                    <button onClick={()=> viewUserHandler(user._id)} className="btn btn-dark">View</button>
+                   
                
             </div>
         )

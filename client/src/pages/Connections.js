@@ -50,8 +50,7 @@ const Connections = () => {
                 <div className={styles.titleSecondary}>
                     <p>Connections</p>
                 </div>
-                {/* HAS TO BE CHANGED TO REAL CONNECTIONS FROM THE ACCOUNT OBJECTS RIGHT NOW COPY OF LIKES */}
-                {/* <ConnectList connects={info.invitations}/> */}
+                <ConnectList connects={info.connections} chats={info.chats}/>
             </div>
             <div className="row px-5 py-3">
                 <div className={styles.titleSecondary}>

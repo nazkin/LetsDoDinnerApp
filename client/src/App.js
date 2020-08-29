@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Authentication from './pages/Authentication';
 import Home from './pages/Home'
 import Profile from './pages/Profile';
-// import Messages from './pages/Messages';
+import MessagePage from './pages/MsgChat';
 // import MatchUp from './pages/MatchUp';
 import Search from './pages/SearchUsers';
 import StartAccount from './pages/StartAccount';
@@ -29,6 +29,9 @@ function App() {
           <ProtectedRoute path='/user-search' component={Search} />
           <Route path="/account/:id">
             <ProfileDisplay />
+          </Route>
+          <Route path="/message/:id">
+            <MessagePage />
           </Route>
         </Switch>
       </Router>
