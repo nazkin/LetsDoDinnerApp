@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import styles from '../styles/editaccount.module.scss'
+import styles from '../styles/formStyles/editaccount.module.scss'
 import axios from 'axios';
 
 const EditForm = (props) => {

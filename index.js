@@ -41,5 +41,6 @@ const server = app.listen(PORT, ()=> {
 const io = socket(server);
 
 io.on("connection", function (socket) {
-  console.log("Made socket connection");
+  console.log("Made socket connection", socket.id);
+
 });

@@ -13,7 +13,8 @@ const Messages = () => {
 
     let {id} = useParams();
     const chatId = id;
-    useEffect(()=> {
+
+    const getChat = () => {
         axios({
             method:'GET',
             url: `http://localhost:8080/api/send/chatdata/${chatId}`,
@@ -26,6 +27,12 @@ const Messages = () => {
         }).catch(err => {
             console.log(err)
         })
+    }
+    useEffect(()=> {
+        const interval = setInterval(()=> {
+           getChat()
+        }, 1000);
+        return () => clearInterval(interval)
     }, [sent])
 
     const messageSentUpdate = () => {

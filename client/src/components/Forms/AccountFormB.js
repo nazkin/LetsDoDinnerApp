@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 import firebase from 'firebase';
 import storage from '../../Firebase/index';
 import axios from 'axios';
 import imgPlaceholder from '../../images/camera.png';
-import styles from '../styles/formtwo.module.scss';
+import styles from '../styles/formStyles/formtwo.module.scss';
 
 const FormB = props => {
     let history = useHistory();
@@ -109,6 +109,9 @@ const FormB = props => {
                 {saveForm}
 
             </div>
+            <Link to="/">
+                <h1>SKIP</h1>
+            </Link>
         </div>
     )
 }

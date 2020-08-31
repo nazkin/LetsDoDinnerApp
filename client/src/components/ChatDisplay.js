@@ -7,7 +7,11 @@ const ChatDisplay = ({chatData}) => {
         const userA = chatData.users[0].userId
        
 
-        messageDisplay = chatData.messages.map(msg =>{
+        messageDisplay = chatData.messages.map((msg, i) =>{
+
+            if(i < chatData.messages.length - 10){
+                return
+            }
             if(msg.sentBy === userA){
                 return <div className={styles.userAmsg}><p >{" >>> "+msg.body}</p></div>
             }else{

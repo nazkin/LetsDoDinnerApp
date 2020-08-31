@@ -120,12 +120,22 @@ router.post('/update/:id', jwtVerify, async (req, res) => {
 
 //Retrieving users that have recently been logged in
 
-router.get('/recent-users', jwtVerify, async (req, res) => { //******THE ALGORITHM IS NOT COMPLETE*/
+router.get('/recent-users', jwtVerify, async (req, res) => { 
     try{
+        const recentAccounts = []
+        const usersAccount = await Account.findOne({userId: req.user.userId})
         const accounts = await Account.find({})
+
+        accounts.forEach((account, i) => {
+
+            //OTHER LOGIC FOR FILTERING SPECIFIC USERS
+            if(account.userId != req.user.userId){
+                recentAccounts.push(account)
+            }
+        })
         res.json({
             message: "Recent accounts retrieved",
-            accounts: accounts
+            accounts: recentAccounts
         })
     } catch(err) {
         console.log(err);

@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../styles/authform.module.scss';
+import styles from '../styles/formStyles/authform.module.scss';
 
 const AuthForm = props => {
 

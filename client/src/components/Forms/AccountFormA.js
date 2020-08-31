@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import styles from '../styles/formone.module.scss';
+import styles from '../styles/formStyles/formone.module.scss';
 import DatePicker from "react-datepicker";
 import axios from 'axios';
 

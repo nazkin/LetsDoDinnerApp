@@ -50,6 +50,7 @@ const Connections = () => {
                 <div className={styles.titleSecondary}>
                     <p>Connections</p>
                 </div>
+        
                 <ConnectList connects={info.connections} chats={info.chats}/>
             </div>
 
