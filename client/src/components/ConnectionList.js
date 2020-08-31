@@ -9,7 +9,11 @@ const ConnectionList = ({connects, chats}) => {
         history.push(`/message/${id}`)
     }
 
-    let connectList = null;
+    let connectList = (
+            <div className="row px-5">
+                <h1>No connections. Start searching</h1>
+            </div>
+    );
     if(connects){
         connectList = connects.map(con => {
             let hasChat = null;

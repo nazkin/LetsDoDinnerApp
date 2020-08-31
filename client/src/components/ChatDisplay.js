@@ -5,7 +5,7 @@ const ChatDisplay = ({chatData}) => {
     let messageDisplay = null;
     if(chatData){
         const userA = chatData.users[0].userId
-        const userB = chatData.users[1].userId
+       
 
         messageDisplay = chatData.messages.map(msg =>{
             if(msg.sentBy === userA){

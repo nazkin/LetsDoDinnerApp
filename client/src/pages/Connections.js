@@ -40,7 +40,7 @@ const Connections = () => {
 
     return(
         <Template>
-            <div className="row px-5 py-3">
+            <div className="row mt-5 px-5 py-3">
                 <div className={styles.titleSecondary}>
                     <p>Likes</p>
                 </div>
@@ -52,14 +52,7 @@ const Connections = () => {
                 </div>
                 <ConnectList connects={info.connections} chats={info.chats}/>
             </div>
-            <div className="row px-5 py-3">
-                <div className={styles.titleSecondary}>
-                    <p>Conversations</p>
-                </div>
-                <div className="col-md-12">
-                    
-                </div>
-            </div>
+
          
         </Template>
     )

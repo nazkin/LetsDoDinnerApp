@@ -8,6 +8,7 @@ import MessageInput from '../components/ChatForm'
 const Messages = () => {
     const [loading, setLoading] = useState(false)
     const [chatData, setChatData] = useState(null)
+    const [sent, setSent] = useState(false)
     const token = sessionStorage.getItem('auth-token');
 
     let {id} = useParams();
@@ -25,8 +26,11 @@ const Messages = () => {
         }).catch(err => {
             console.log(err)
         })
-    }, [])
+    }, [sent])
 
+    const messageSentUpdate = () => {
+        setSent(prev => !prev)
+    }
     if(!chatData){
         return(
             <Template>
@@ -38,7 +42,7 @@ const Messages = () => {
     return(
         <Template>
             <Display chatData={chatData} />
-            <MessageInput chatId={chatId} token={token} />
+            <MessageInput sentUpdate={messageSentUpdate} chatId={chatId} token={token} />
         </Template>
     )
 }

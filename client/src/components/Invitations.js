@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const InvitationList = ({likes, token, type}) => {
     const history = useHistory();
-    let likeList = null;
+    
     
     
     const viewInviteAccountHandler = (id) => {
@@ -23,8 +23,13 @@ const InvitationList = ({likes, token, type}) => {
         console.log(res);
 
     }
-
-    if(likes){
+    let likeList = (
+                <div className="row px-5">
+                    <h1>No new invitations to connect</h1>
+                </div>
+    );
+    
+    if(likes && likes.length > 0){
         likeList = likes.map(like => {
             return  (
                 <div>

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import styles from './styles/compIndex.module.scss'
 import axios from 'axios'
 
-const ChatForm = ({chatId, token})=> {
+const ChatForm = ({chatId, token, sentUpdate})=> {
     const [message, setMessage] = useState('')
 
     const messageChangeHandler = (e) => {
@@ -21,7 +21,10 @@ const ChatForm = ({chatId, token})=> {
                 "auth-token": token
             }
         }).then(res => {
-            console.log(res)})
+            console.log(res)
+            sentUpdate()
+            setMessage("")
+        })
           .catch(err => console.log(err))
     }
     return(

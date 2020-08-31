@@ -1,8 +1,10 @@
 const express = require('express')
 const mongoose = require('mongoose')
-
+const morgan = require('morgan')
 const cors = require('cors')
 const dotenv = require('dotenv')
+const helmet = require('helmet')
+const socket = require('socket.io')
 const PORT = process.env.PORT || 8080
 dotenv.config()
 
@@ -16,6 +18,8 @@ const app = express();
 
 //middlewares***************************************
 app.use(cors())
+app.use(helmet())
+app.use(morgan('tiny'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -29,6 +33,13 @@ app.use('/api/user', authRoute)
 app.use('/api/account', accountRoute)
 app.use('/api/send', userCommunication)
 
-app.listen(PORT, ()=> {
+const server = app.listen(PORT, ()=> {
     console.log('Dating app server listening on port ' + PORT)
+});
+
+// Socket setup
+const io = socket(server);
+
+io.on("connection", function (socket) {
+  console.log("Made socket connection");
 });
