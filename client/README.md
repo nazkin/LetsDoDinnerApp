@@ -15,14 +15,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 [x] Make sure that firebase is linked to your app successfully
 [x] Set up navigation
 [x] Create protected routes
-[] Logout button
+[x] Logout button
 
 ## Stage 3
 [] Filter users based on ages, not only on gender
 [] Display image text on the profile page
 [x] Decline an invitation functionality
-[] Under connection page make sure that page refreshes when invitation and connection actions are enacted
+[x] Under connection page make sure that page refreshes when invitation and connection actions are enacted
 [] Change avatar functionality
 [] Remove a connection
 [] Delete image functionality
-[]

@@ -68,7 +68,6 @@ const EditForm = (props) => {
         <div className={"form-group "}>
             <label className={styles.formLabel}>Nickname</label>
             <input className={"form-control "} type="text" value={nick} onChange={(e)=> nickChangeHandler(e)}/>
-            <small className={"form-text text-muted"}>This name will be viewed by other users on this application. Your real name will remain private</small>
         </div>
         <div className={"form-group "}>
             <label className={styles.formLabel}>Describe yourself</label>
@@ -109,7 +108,7 @@ const EditForm = (props) => {
                 <input className={"form-control "} type="text" value={city} onChange={(e)=> cityChangeHandler(e)}/>
             </div>
         </div>
-        <button type="submit" className={"btn btn-outline-info btn-lg mt-5"}>Save Changes</button>
+        <button type="submit" className={"btn btn-dark btn-lg mt-5 float-right"}>Save Changes</button>
     </form> 
     )
 }

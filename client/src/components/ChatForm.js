@@ -29,9 +29,9 @@ const ChatForm = ({chatId, token, sentUpdate})=> {
     }
     return(
         <div className={"row "+ styles.chatFormRow}>
-            <div className="col-md-8">
-                <form onSubmit={submitMessageHandler}>
-                    <div className="form-group">
+            <div className={"col-md-8 "+styles.chatFormCol}>
+                <form className={styles.chatForm} onSubmit={submitMessageHandler}>
+                    <div className={"form-group "+ styles.inputGroup}>
                         <input value={message} onChange={messageChangeHandler} type="text" className={"form-control "+styles.chatInput} aria-describedby="message input"/>
                     </div>
                     <button onClick={submitMessageHandler} type="submit" className="btn btn-info">Submit</button>

@@ -47,7 +47,7 @@ const Profile = (props) => {
 
     if(accountInfo){
         images = accountInfo.images.map(image => {
-            return <ImageCard key={image._id} url={image.downloadUrl} caption={image.caption} /> 
+            return <ImageCard account={accountInfo._id} token={token} key={image._id} url={image.downloadUrl} caption={image.caption} /> 
         });
     }
     if(isUpload){

@@ -4,6 +4,7 @@ import axios from 'axios'
 import Template from '../components/Template'
 import Display from '../components/ChatDisplay'
 import MessageInput from '../components/ChatForm'
+import Title from '../components/UI/Title'
 
 const Messages = () => {
     const [loading, setLoading] = useState(false)
@@ -45,9 +46,10 @@ const Messages = () => {
             </Template>
         )
     }
-
+    const title = `${chatData.users[0].nickname} <3 <3 <3 ${chatData.users[1].nickname}`
     return(
         <Template>
+            <Title title={title} />
             <Display chatData={chatData} />
             <MessageInput sentUpdate={messageSentUpdate} chatId={chatId} token={token} />
         </Template>

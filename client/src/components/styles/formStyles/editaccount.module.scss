@@ -5,6 +5,10 @@
     
     
 }
+.accountForm{
+    background: #f1f1f1f1;
+    padding: 1rem;
+}
 .imgCol{
     height: 80vh;
     background-image: url('../../../images/joinus.jpeg');
@@ -20,11 +24,8 @@
 
 .formLabel{
     font-size: 24px;
-    color: #fd7c7c;
-    padding: 5px;
-    width: 100%;
-    background: darkslategrey;
-   
+    color: darkslategrey;
+    border-bottom: 4px solid  rgb(243, 76, 76);
 }
 .textArea{
  width: 100%;
