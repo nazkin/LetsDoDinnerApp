@@ -3,6 +3,7 @@
     background-color:rgba(56,23,23,0.2);
     padding: 2rem;
     
+    
 }
 .imgCol{
     height: 80vh;
@@ -14,14 +15,15 @@
 .formCol{
     padding: 1rem;
     color: whitesmoke;
+    background: linen;
 }
-.accountForm{
-    padding-left: 2rem;
-    padding-right: 2rem;
-}
+
 .formLabel{
     font-size: 24px;
-    color: rgb(253, 124, 124);
+    color: #fd7c7c;
+    padding: 5px;
+    width: 100%;
+    background: darkslategrey;
    
 }
 .textArea{

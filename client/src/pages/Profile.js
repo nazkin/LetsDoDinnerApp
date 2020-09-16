@@ -3,6 +3,7 @@ import axios from 'axios'
 import EditAccountForm from '../components/Forms/AccountEditForm'
 import styles from './styles/profile.module.scss'
 import Template from '../components/Template'
+import Title from '../components/UI/Title'
 import FileUpload from '../components/Forms/formElements/UploadFIle'
 import ImageCard from '../components/Image'
 
@@ -43,6 +44,7 @@ const Profile = (props) => {
 
     let images = null;
     let uploadSection = null;
+
     if(accountInfo){
         images = accountInfo.images.map(image => {
             return <ImageCard key={image._id} url={image.downloadUrl} caption={image.caption} /> 
@@ -53,12 +55,20 @@ const Profile = (props) => {
                             <FileUpload refreshAccount={pageRefreshHandler} token={token} />
                         </div>)
     }
+
+
+    if(loading){
+       return (
+           <Template>
+               <h1>Loading...</h1>
+           </Template>
+       ) 
+    }
     return(
         <Template>
             <div className={"row "+ styles.updateRow}>
                 <div className={"col-lg-6 px-5 py-1"}>
-                    <h1 className={styles.formTitle}>General Information</h1>
-                    <hr className={styles.hLine}/>
+                    <Title title="User Information"/>
                     {/* display the form */}
                    {!accountInfo ? null : <EditAccountForm country={accountInfo.country} city={accountInfo.city} region={accountInfo.region} id={accountInfo._id} nickname={accountInfo.nickname} desc={accountInfo.description} interest={accountInfo.interestedIn} minAge={accountInfo.matchAgeMin} maxAge={accountInfo.matchAgeMax} />}
                 </div>

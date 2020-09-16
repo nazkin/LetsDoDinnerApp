@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import styles from './styles/home.module.scss'
 import Template from '../components/Template'
 import ActiveUsers from '../components/UI/UserImgList'
+import Title from '../components/UI/Title'
 import axios from 'axios'
 
 const Home = (props)=> {
@@ -12,6 +12,7 @@ const Home = (props)=> {
     const token = sessionStorage.getItem('auth-token')
     
     useEffect(()=> {
+        setLoading(true)
         axios({
             method: "GET",
             url: "http://localhost:8080/api/account/recent-users",
@@ -21,15 +22,27 @@ const Home = (props)=> {
         }).then(res => {
             console.log(res.data.accounts)
             setActiveAccounts(res.data.accounts)
-        }).catch(err=> console.log(err))
+            setLoading(false)
+        }).catch(err=> {
+            console.log(err)
+            setLoading(false)
+        })
     },[]);
+
+    if(loading){
+        return(
+            <Template>
+                <h1>Loading...</h1>
+            </Template>
+        )
+    }
 
     return(
         <Template>
             <div className="jumbotron m-5 p-5">
                <h1>Start Matching with New People Right Away !!!</h1>
             </div>
-            <h1 className={styles.activeUsersTitle}>Recently Active Users</h1>
+            <Title title="Recently Active Users" />
             <hr />
             <ActiveUsers users={activeAccounts} />
         </Template>

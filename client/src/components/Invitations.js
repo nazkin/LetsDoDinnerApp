@@ -3,7 +3,7 @@ import styles from './styles/compIndex.module.scss'
 import {useHistory} from 'react-router-dom'
 import axios from 'axios'
 
-const InvitationList = ({likes, token, type}) => {
+const InvitationList = ({likes, token, type, refresh}) => {
     const history = useHistory();
     
     
@@ -19,9 +19,19 @@ const InvitationList = ({likes, token, type}) => {
             headers: {
                 'auth-token': token
             }
-        });
-        console.log(res);
+        })
+        refresh()
 
+    }
+    const declineInvitationHandler = async (id) => {
+        const res = await axios({
+            method: 'POST',
+            url: `http://localhost:8080/api/send/invitation/decline/${id}`,
+            headers: {
+                'auth-token': token
+            }
+        })
+        refresh()
     }
     let likeList = (
                 <div className="row px-5">
@@ -41,7 +51,7 @@ const InvitationList = ({likes, token, type}) => {
                         <div onClick={()=> acceptInvitationHandler(like._id)} className={styles.invitationAccept}>
                             Accept
                         </div>
-                        <div className={styles.invitationDecline}>
+                        <div onClick={()=> declineInvitationHandler(like._id)} className={styles.invitationDecline}>
                             Decline
                         </div>
                     </div>

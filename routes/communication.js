@@ -26,7 +26,6 @@ router.post('/invitation/:id', jwtVerify, async (req, res)=> {
 
 })
 //Connection accept
-
 router.post('/invitation/accept/:id', jwtVerify, async (req, res)=> {
     const recipient = req.params.id;//This id is retrieved from the invitation request
 
@@ -53,15 +52,30 @@ router.post('/invitation/accept/:id', jwtVerify, async (req, res)=> {
         message: "A connection between both users has been established successfully"
     })
 
-    //Create a chat which signifies a connection made
+})
+//Connection decline
 
-    //Add the chat into the first users chat array
-
-    //add the chat into the second users chat array 
-
-    //Delete invitation from the recipients array
+router.post('/invitation/decline/:id', jwtVerify, async (req, res) => {
+    try {
+        const dmAccount = await Account.findOne({userId: req.user.userId})
+        const senderAccount = await Account.findById(req.params.id)
+    
+        dmAccount.invitations.pop(senderAccount)
+        await dmAccount.save()
+    
+        res.json({
+            message: "Invitation removed successfully"
+        })
+    } catch (error) {
+        res.json({
+            message: "Could not remove invitaion",
+            err: error
+        })
+    }
 
 })
+
+
 //Fetching a chat between two users
 router.get('/chatdata/:id', jwtVerify, async (req, res)=> {
 

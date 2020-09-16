@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import Template from '../components/Template'
 import axios from 'axios'
-import styles from './styles/connections.module.scss'
+import Title from '../components/UI/Title'
 import Invitations from '../components/Invitations'
 import ConnectList from '../components/ConnectionList'
 
 const Connections = () => {
     const [info, setInfo] = useState({})
     const [loading, setLoading] = useState(false)
+    const [refresh, setRefresh] = useState(false)
+
     const token = sessionStorage.getItem('auth-token')
 
     useEffect(()=> {
@@ -28,7 +30,11 @@ const Connections = () => {
             setLoading(false)
 
         })
-    }, [])
+    }, [refresh])
+
+    const refreshHandler = () => {
+        setRefresh(!refresh)
+    }
 
     if(loading || !info){
         return(
@@ -41,20 +47,13 @@ const Connections = () => {
     return(
         <Template>
             <div className="row mt-5 px-5 py-3">
-                <div className={styles.titleSecondary}>
-                    <p>Likes</p>
-                </div>
-                    <Invitations type="invitation" likes={info ? info.invitations: null} token={token}/>
+                <Title title="Likes" />
+                <Invitations type="invitation" likes={info ? info.invitations: null} token={token} refresh={refreshHandler}/>
             </div>
             <div className="row px-5 py-3">
-                <div className={styles.titleSecondary}>
-                    <p>Connections</p>
-                </div>
-        
-                <ConnectList connects={info.connections} chats={info.chats}/>
+                <Title title="Connections" />
+                <ConnectList connects={info.connections} chats={info.chats} refresh={refreshHandler}/>
             </div>
-
-         
         </Template>
     )
 }

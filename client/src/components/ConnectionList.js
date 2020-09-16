@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import styles from './styles/compIndex.module.scss'
 import {useHistory} from 'react-router-dom'
 
@@ -14,7 +14,7 @@ const ConnectionList = ({connects, chats}) => {
                 <h1>No connections. Start searching</h1>
             </div>
     );
-    if(connects){
+    if(connects && connects.length > 0){
         connectList = connects.map(con => {
             let hasChat = null;
             chats.forEach(chat => {

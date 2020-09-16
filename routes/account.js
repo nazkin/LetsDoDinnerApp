@@ -86,11 +86,15 @@ router.get('/info', jwtVerify, async (req, res)=> {
 router.get('/info/:id', jwtVerify, async (req, res)=> {
     try {
         const account = await Account.findOne({_id: req.params.id}).populate('images')
- 
+        const usersAccount = await Account.findOne({userId: req.user.userId})
+        let hasConnection = false
+        if(account.invitations.includes(usersAccount._id) || account.connections.includes(usersAccount._id)) {
+            hasConnection = true
+        }
         res.json({
             message: 'Account retrieved successfully',
             account: account,
-
+            hasConnect: hasConnection,
         })
 
     } catch (error) {
@@ -124,7 +128,7 @@ router.get('/recent-users', jwtVerify, async (req, res) => {
     try{
         const recentAccounts = []
         const usersAccount = await Account.findOne({userId: req.user.userId})
-        const accounts = await Account.find({})
+        const accounts = await Account.find({gender: usersAccount.interestedIn})
 
         accounts.forEach((account, i) => {
 
