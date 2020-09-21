@@ -131,9 +131,10 @@ router.get('/recent-users', jwtVerify, async (req, res) => {
         const accounts = await Account.find({gender: usersAccount.interestedIn})
 
         accounts.forEach((account, i) => {
+            const isUser = account.userId === req.user.userId
 
             //OTHER LOGIC FOR FILTERING SPECIFIC USERS
-            if(account.userId != req.user.userId){
+            if(!isUser){
                 recentAccounts.push(account)
             }
         })

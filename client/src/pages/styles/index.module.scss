@@ -1,0 +1,36 @@
+.heroContainer{
+    background: linear-gradient(180deg, rgba(201,100,100,1) 0%, rgba(215,149,149,1) 27%, rgba(241,241,241,1) 100%);
+}
+.heroText{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    h1 {
+        font-size: 56px;
+        color: darkred;
+        font-weight: 700;
+        
+        span {
+            color: white;
+            font-weight: 400;
+            font-style: italic;
+            border-bottom: 2px solid darkred;
+            text-transform: uppercase;
+        }
+    }
+
+    h3 {
+        font-size: 30px;
+        color:whitesmoke;
+        font-weight: 500;
+        padding: 5px;
+
+        max-width: 70%;
+        background: rgba(215,149,149,1);
+    }
+}
+.loveImg{
+    width: 100%;
+    height: auto;
+}

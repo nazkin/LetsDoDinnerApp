@@ -12,7 +12,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    color: darkslategrey;
+    color: darkslategray;
     font-weight: 300;
     box-shadow: 1px 1px 3px 3px lightgray;
 
@@ -49,10 +49,26 @@
     min-height: 45em;
 }
 
-.image{
-    width: 25%;
+.imageItem{
+    width: 29%;
     height: auto;
-    max-height: 30rem;
+    padding: 4px;
+    background: darkslategray;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.image {
+    width: 100%;
+}
+.imgText{
+    height: 4rem;
+    width: 100%;
+    color: white;
+    padding: 0.3rem;
+    p {
+        font-size: 22px;
+        font-style: italic;
+    }
 }
 //Title styles
 
