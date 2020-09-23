@@ -123,7 +123,8 @@
 
 .uploadSection{
    width: 100%;
-   z-index: 10000;
+   max-height: 39em;
+   z-index: 100;
    position: relative;
    background: white;
 }
@@ -131,7 +132,6 @@
 .toggleBtn{
     width: 100%;
     padding: 10px;
-    border-top: 1px double silver;
     button{
         border-radius: 50% !important;
         background: rgb(56,23,23);

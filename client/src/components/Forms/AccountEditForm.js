@@ -49,33 +49,40 @@ const EditForm = (props) => {
             matchAgeMax: maxAge,
             matchAgeMin: minAge
         }
+        try {
+            const res = await axios({
+                method: "POST",
+                url: `http://localhost:8080/api/account/update/${props.id}`,
+                headers: {
+                    "auth-token": token
+                },
+                data:{
+                    account: account
+                }
+            });
+            console.log(res)
+            props.refresh()
+        } catch (error) {
+            console.log(error)
+        }
 
-        const res = await axios({
-            method: "POST",
-            url: `http://localhost:8080/api/account/update/${props.id}`,
-            headers: {
-                "auth-token": token
-            },
-            data:{
-                account: account
-            }
-        });
-        console.log(res);
+
+       
     }
     if(!props.toEdit){
         return( 
         <form className={styles.accountForm}> 
-            <div className={"form-group "}>
+            <div className={"form-group text-center "+styles.inputGroup}>
                 <label className={styles.formLabel}>Nickname:</label>
                 <input readOnly className={"form-control "+styles.formInputB} type="text" value={nick} />
             </div>
-            <div className={"form-group "}>
+            <div className={"form-group text-center "+styles.inputGroup}>
                 <label className={styles.formLabel}>Describe yourself:</label>
                 <textarea readOnly className={"form-contol "+ styles.textAreaB} rows="3" value={desc} >
                 
                 </textarea>
             </div>
-            <div className={"form-row align-items-center justify-content-between my-3"}>
+            <div className={"form-row align-items-center justify-content-between my-3 "+styles.inputGroup}>
                 <div className={"col-md-3"}>
                     <label className={styles.formLabel}>Intersted In:</label>
                     <input readOnly className={"form-control "+styles.formInputB} type="text" value={interest} />
@@ -89,7 +96,7 @@ const EditForm = (props) => {
                     <input readOnly value={maxAge} className={"form-control "+styles.formInputB} type="text" />
                 </div>
             </div>
-            <div className="form-row align-items-center justify-content-between my-3">
+            <div className={"form-row align-items-center justify-content-between my-3 "+styles.inputGroup}>
                 <div className={"col-md-3"}>
                     <label className={styles.formLabel}>Country:</label>
                     <input readOnly className={"form-control "+styles.formInputB} type="text" value={country} />
@@ -118,7 +125,7 @@ const EditForm = (props) => {
             
             </textarea>
         </div>
-        <div className={"form-row align-items-center justify-content-between my-3"}>
+        <div className={"form-row align-items-center justify-content-between my-3 "}>
             <div className={"col-md-3"}>
                 <label className={styles.formLabel}>Intersted In</label>
                 <select  className={"custom-select mr-sm-2 "+ styles.formInput} onChange={(e)=> interestChangeHandler(e)} value={interest}>
@@ -137,7 +144,7 @@ const EditForm = (props) => {
                 <input value={maxAge} onChange={(e)=> ageMaxHandler(e)} className={"form-control "+styles.formInput} type="number" min={18} max={100}/>
             </div>
         </div>
-        <div className="form-row align-items-center justify-content-between my-3">
+        <div className={"form-row align-items-center justify-content-between my-3 "}>
             <div className={"col-md-3"}>
                 <label className={styles.formLabel}>Country</label>
                 <input className={"form-control "+styles.formInput} type="text" value={country} onChange={(e)=> countryChangeHandler(e)}/>

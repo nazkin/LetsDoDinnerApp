@@ -78,7 +78,7 @@ const UploadFile = (props) => {
             console.log(res);
             refreshUploadInfo();
             // history.push('/profile');
-
+            
 
         } catch (error) {
              console.log(error);
@@ -90,16 +90,12 @@ const UploadFile = (props) => {
         return(
             <div className={styles.uploadContainer}> 
                 <form onSubmit={storeImageHandler} className={styles.uploadForm}>
-                    
                     <div className={"form-group "}>
-                    
-                        <span><img src={uploadIcon} alt="upload icon" /><label className={styles.formLabelB}>Upload Here</label></span>
-                        
+                        <span><img src={uploadIcon} alt="upload icon" /><label className={styles.formLabelB}>Upload Here</label></span>   
                         <input onChange={fileChangeHandler} type="file" className={"form-control-file " + styles.uploadInput}  />
                     </div>
-                   {src ? <button type="submit" className="btn btn-danger">Upload</button> : null}
+                   {src ? <button type="submit" className="btn btn-dark">Upload</button> : null}
                 </form>
-                
                 <div className={styles.imgDisplay}>
                     <img src={placeholder}  alt="Preview of uploaded image" />
                 </div>

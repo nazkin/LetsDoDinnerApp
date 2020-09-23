@@ -1,7 +1,8 @@
 //Edit Account
 .accountForm{
-    padding: 0.1rem;
+    padding: 0.5rem;
     width: 100%;
+  
 
 }
 
@@ -18,18 +19,22 @@
     width: 100%;
     background:transparent;
     border: none !important;
+    color: #460c0c !important;
+    font-weight: 700;
 }
 .formLabel{
-    font-size: 20px;
+    font-size: 24px;
     color: darkslategray;
     padding: 0.2rem;
     border-bottom: 1px solid darkslategray;
+    
 }
 .formInput{
     background-color: rgba(188,78,78, 0.5)  !important;
     color: rgb(77, 0, 0)  !important;
     border: none !important;
     border-bottom: 1px solid rgb(117, 9, 9) !important;
+    
  
 }
 .formInput:focus{
@@ -37,10 +42,16 @@
 }
 .formInputB{
     background-color: transparent!important;
-    color: black !important;
+    color: #470000 !important;
     border: none !important;
     border-bottom: 1px solid transparent !important;
+    font-size: 23px !important;
+    font-weight: 700;
  
+}
+.inputGroup{
+    width: 100%;
+    background: whitesmoke;
 }
 .subBtn{
     border-radius: 0px !important;
@@ -56,7 +67,7 @@
 //Upload Form
 .uploadForm{
     width: 80%;
-    padding: 2rem;
+    padding: 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -70,8 +81,9 @@
 }
 .formLabelB{
     font-size: 24px;
-    color: darkslategray;
+    color: white;
     margin-left: 1rem;
+    font-weight: 700;
    
 }
 .uploadInput{
@@ -103,7 +115,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #fff6f6;
-    border: none;
+    background: rgba(188,78,78,1);
+    padding: 0.5rem;
+   
   
 }

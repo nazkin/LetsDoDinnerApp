@@ -49,7 +49,7 @@ const Image = ({url, caption, token, account, refresh}) => {
                         <button onMouseOut={()=> commentHandler("")} onMouseOver={()=> commentHandler("Set as avatar")} onClick={()=> setAvatarHandler(url)} className={"btn btn-link mx-4 "+styles.iconBtn}>
                             <img src={avatarIcon} alt="Add avatar icon" />
                         </button>
-                        <button onMouseOut={()=> commentHandler("")} onMouseOver={()=> commentHandler("Remove")}  className={"btn btn-link mx-4 "+styles.delBtn}>
+                        <button onMouseOut={()=> commentHandler("")} onMouseOver={()=> commentHandler("Remove image", "fail")}  className={"btn btn-link mx-4 "+styles.delBtn}>
                             <img src={deleteIcon} alt="Delete image icon" />
                         </button>
                     </div>

@@ -38,6 +38,8 @@ const Profile = (props) => {
 
     const pageRefreshHandler = () => {
         setRefresh(!refresh);
+        isEditForm(false);
+        setIsUpload(false);
     }
     const toggleUpload = () => {
         setIsUpload(!isUpload);
@@ -70,14 +72,40 @@ const Profile = (props) => {
     }
     return(
         <Template>
-            <div className={"row "+ styles.updateRow}>
+            <div className={"row py-5 "+ styles.updateRow}>
                 <div className={"col-lg-5 px-5 py-1 "+styles.formCol}>
                     <Title title="User Information"/>
                     <div className={"row my-2 d-flex justify-content-end "+styles.toggleBtn}>
                      <button onClick={toggleEdit} className={"btn btn-danger btn-lg "}>edit</button>
                    </div>
                     {/* display the form */}
-                   {!isEditForm ? <EditAccountForm toEdit={false} country={accountInfo.country} city={accountInfo.city} region={accountInfo.region} id={accountInfo._id} nickname={accountInfo.nickname} desc={accountInfo.description} interest={accountInfo.interestedIn} minAge={accountInfo.matchAgeMin} maxAge={accountInfo.matchAgeMax} /> : <EditAccountForm toEdit={true} country={accountInfo.country} city={accountInfo.city} region={accountInfo.region} id={accountInfo._id} nickname={accountInfo.nickname} desc={accountInfo.description} interest={accountInfo.interestedIn} minAge={accountInfo.matchAgeMin} maxAge={accountInfo.matchAgeMax} />}
+                   {
+                    !isEditForm ?   <EditAccountForm 
+                                        toEdit={false} 
+                                        country={accountInfo.country} 
+                                        city={accountInfo.city} 
+                                        region={accountInfo.region} 
+                                        id={accountInfo._id} 
+                                        nickname={accountInfo.nickname} 
+                                        desc={accountInfo.description} 
+                                        interest={accountInfo.interestedIn} 
+                                        minAge={accountInfo.matchAgeMin} 
+                                        maxAge={accountInfo.matchAgeMax} 
+                                    /> : <EditAccountForm 
+                                            toEdit={true} 
+                                            country={accountInfo.country} 
+                                            city={accountInfo.city} 
+                                            region={accountInfo.region} 
+                                            id={accountInfo._id} 
+                                            nickname={accountInfo.nickname} 
+                                            desc={accountInfo.description} 
+                                            interest={accountInfo.interestedIn} 
+                                            minAge={accountInfo.matchAgeMin} 
+                                            maxAge={accountInfo.matchAgeMax}
+                                            refresh={pageRefreshHandler} 
+                                        />
+                        
+                   }
                 </div>
                 <div className={"col-lg-7 p-0 "+ styles.imgColumn }>
                     <Title title="User Images"/>   

@@ -49,7 +49,9 @@ const Messages = () => {
     const title = `${chatData.users[0].nickname} <3 <3 <3 ${chatData.users[1].nickname}`
     return(
         <Template>
-            <Title title={title} />
+            <div className={"row p-5"}>
+                <Title title={title} />
+            </div>
             <Display chatData={chatData} />
             <MessageInput sentUpdate={messageSentUpdate} chatId={chatId} token={token} />
         </Template>
