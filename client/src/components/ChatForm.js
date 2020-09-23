@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import styles from './styles/compIndex.module.scss'
+import styles from './styles/core/compIndex.module.scss'
 import axios from 'axios'
 
 const ChatForm = ({chatId, token, sentUpdate})=> {

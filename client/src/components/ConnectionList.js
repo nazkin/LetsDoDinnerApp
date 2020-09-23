@@ -1,7 +1,8 @@
 import React from 'react'
-import styles from './styles/compIndex.module.scss'
+import styles from './styles/core/compIndex.module.scss'
 import {useHistory} from 'react-router-dom'
 import connectIcon from '../images/connection.png'
+
 const ConnectionList = ({connects, chats}) => {
     let history = useHistory();
 

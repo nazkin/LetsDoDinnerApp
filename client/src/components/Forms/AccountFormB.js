@@ -4,7 +4,7 @@ import firebase from 'firebase';
 import storage from '../../Firebase/index';
 import axios from 'axios';
 import imgPlaceholder from '../../images/camera.png';
-import styles from '../styles/formStyles/formtwo.module.scss';
+import styles from '../styles/formStyles/introForms.module.scss';
 
 const FormB = props => {
     let history = useHistory();
@@ -99,7 +99,7 @@ const FormB = props => {
     return(
         <div className={'row ' + styles.mainRow}>
             <div className={'col-md-4 '+ styles.imgCol}></div>
-            <div className={'col-md-8 '+ styles.formCol}>
+            <div className={'col-md-8 '+ styles.formColmn}>
                 <h1 className="">Step 2: Upload images of yourself</h1>
                 {uploadForm}
 

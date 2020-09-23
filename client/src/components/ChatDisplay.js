@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import styles from './styles/compIndex.module.scss'
+import React from 'react'
+import styles from './styles/core/compIndex.module.scss'
 import ScrollToBottom from 'react-scroll-to-bottom';
 
 const ChatDisplay = ({chatData}) => {

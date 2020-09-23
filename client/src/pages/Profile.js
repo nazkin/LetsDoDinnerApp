@@ -51,7 +51,7 @@ const Profile = (props) => {
 
     if(accountInfo){
         images = accountInfo.images.map(image => {
-            return <ImageCard account={accountInfo._id} token={token} key={image._id} url={image.downloadUrl} caption={image.caption} /> 
+            return <ImageCard refresh={pageRefreshHandler} account={accountInfo._id} token={token} key={image._id} url={image.downloadUrl} caption={image.caption} /> 
         });
     }
     if(isUpload){
@@ -74,21 +74,21 @@ const Profile = (props) => {
                 <div className={"col-lg-5 px-5 py-1 "+styles.formCol}>
                     <Title title="User Information"/>
                     <div className={"row my-2 d-flex justify-content-end "+styles.toggleBtn}>
-                     <button onClick={toggleEdit} className={"btn btn-danger btn-lg float-right"}>edit</button>
+                     <button onClick={toggleEdit} className={"btn btn-danger btn-lg "}>edit</button>
                    </div>
                     {/* display the form */}
                    {!isEditForm ? <EditAccountForm toEdit={false} country={accountInfo.country} city={accountInfo.city} region={accountInfo.region} id={accountInfo._id} nickname={accountInfo.nickname} desc={accountInfo.description} interest={accountInfo.interestedIn} minAge={accountInfo.matchAgeMin} maxAge={accountInfo.matchAgeMax} /> : <EditAccountForm toEdit={true} country={accountInfo.country} city={accountInfo.city} region={accountInfo.region} id={accountInfo._id} nickname={accountInfo.nickname} desc={accountInfo.description} interest={accountInfo.interestedIn} minAge={accountInfo.matchAgeMin} maxAge={accountInfo.matchAgeMax} />}
                 </div>
                 <div className={"col-lg-7 p-0 "+ styles.imgColumn }>
-                    <Title title="Photographs"/>   
+                    <Title title="User Images"/>   
                    <div className={"row my-2 d-flex justify-content-end "+styles.toggleBtn}>
-                     <button onClick={toggleUpload} className={"btn btn-danger btn-lg"}>+</button>
+                     <button onClick={toggleUpload} className={"btn btn-danger btn-lg"}>new</button>
                    </div>
                     <div className={"row "+styles.uploadSection}>
                         {uploadSection}
                     </div>
                                         {/* display the images */}
-                    <div className={"row my-2 " +styles.images}>
+                    <div className={"row " +styles.images}>
                         {images}
                     </div>
                 </div>

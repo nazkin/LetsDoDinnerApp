@@ -1,3 +1,4 @@
+//Form One
 .mainRow{
     background-color:rgba(56,23,23,0.2);
     padding: 2rem;
@@ -12,7 +13,27 @@
 }
 .formCol{
     padding: 1rem;
-    color: white;
+    color: whitesmoke;
+}
+.accountForm{
+    width: 70%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+.formLabel{
+    font-size: 24px;
+    color: rgb(253, 124, 124);
+   
+}
+.textArea{
+ width: 100%;
+}
+
+//Form Two
+
+.formColmn{
+    padding: 1rem;
+    color: whitesmoke;
     display:flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -27,11 +48,6 @@
     align-items: center;
     margin-top: 3rem;
 
-}
-.formLabel{
-    font-size: 24px;
-    color: rgb(253, 124, 124);
-   
 }
 .uploadInput{
     width: 100%;

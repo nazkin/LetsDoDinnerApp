@@ -1,5 +1,18 @@
-// Invitations component
+//Template
+.main {
+    background: #fff0f0;
+    margin: 0;
+   }
+   header[role="banner"] {
+     width: 100%;
+      background-color:  rgba(163, 36, 36, 0.5);
+       #logoMain {
+         display: block;
+         margin: 0px auto;
+       }
+     }
 
+// Invitations component
 .invitationContainer{
     display: flex;
     flex-direction: row;
@@ -170,4 +183,79 @@
     justify-content: center;
     align-items: center;
     padding: 0 5em;
+}
+
+//Image
+
+.imageCard {
+    width: 28%;
+    height: 23rem;
+    margin: 0.5rem;
+    background:#fff6f6 !important;
+    border: 1px solid transparent !important;
+    p {
+        opacity: 1;
+        min-height: 22px;
+        font-size:18px;
+        font-weight: 300;
+        color: darkslategrey;
+        background: rgba(163, 36, 36, 0.5);
+        width: 100%;
+    }
+    button {
+        display:none;
+    }
+}
+
+.imageCard:hover{
+    border:1px dotted silver !important;
+    button {
+        display:block;
+    }
+}
+.cardImg{
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+}
+.iconBtn{
+    height:40px!important;
+    width: 40px!important;
+    padding: 10px !important;
+    background: rgb(126, 231, 231)!important;
+    border-radius: 50% !important;
+}
+.iconBtn:hover {
+    opacity: 0.8;
+}
+.delBtn {
+    height:40px!important;
+    width: 40px!important;
+    padding: 10px !important;
+    background: rgb(214, 133, 133)!important;
+    border-radius: 50% !important;
+}
+.delBtn:hover{
+    opacity: 0.8;
+}
+.iconComment{
+    width: 100%;
+    height: 22px;
+    margin-bottom: 6px;
+    color:darkcyan;
+}
+.iconCommentSuccess{
+    width: 100%;
+    height: 22px;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: rgb(34, 148, 34);
+}
+
+.iconCommentFail{
+    width: 100%;
+    height: 22px;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: rgb(148, 34, 34);
 }

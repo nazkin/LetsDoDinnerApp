@@ -1,29 +1,9 @@
-
-// .mainRow{
-//     background-color:rgba(56,23,23,0.2);
-//     padding: 2rem;
-//     background: rgb(167, 97, 97)
-    
-    
-// }
+//Edit Account
 .accountForm{
     padding: 0.1rem;
     width: 100%;
 
 }
-// .imgCol{
-//     height: 80vh;
-//     background-image: url('../../../images/joinus.jpeg');
-//     background-size: cover;
-//     background-repeat: no-repeat;
-//     background-position: center center;
-// }
-// .formCol{
-//     padding: 1rem;
-//     color: whitesmoke;
-//     background: rgb(56,23,23);
-//     background: linear-gradient(151deg, rgba(56,23,23,1) 0%, rgba(188,78,78,1) 100%);
-// }
 
 .textArea{
  width: 100%;
@@ -71,4 +51,59 @@
     background: linear-gradient(120deg, rgba(56,23,23,1) 0%, rgba(188,78,78,1) 100%);
     opacity: 0.8;
 
+}
+
+//Upload Form
+.uploadForm{
+    width: 80%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background:rgba(188,78,78,.7);
+    border: 1px solid rgba(188,78,78,.7);
+
+    input {
+        background: #fff6f6;
+    }
+
+}
+.formLabelB{
+    font-size: 24px;
+    color: darkslategray;
+    margin-left: 1rem;
+   
+}
+.uploadInput{
+    width: 100%;
+}
+
+.imgDisplay{
+    height: 15rem;
+    width: 18rem;
+    margin-top: 2px;
+    background: darkslategray;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+.uploadedImg{
+    width: 18rem;
+    height: 15rem;
+    object-fit: cover;
+}
+.inputStyle{
+    width: 100% !important;
+}
+
+.uploadContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff6f6;
+    border: none;
+  
 }

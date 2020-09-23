@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './styles/compIndex.module.scss'
+import styles from './styles/core/compIndex.module.scss'
 import {useHistory} from 'react-router-dom'
 import axios from 'axios'
 import noInvitesIcon from '../images/invitation.png'

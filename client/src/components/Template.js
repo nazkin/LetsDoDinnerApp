@@ -1,6 +1,6 @@
 import React from 'react'
 import Navigation from './UI/Naviation';
-import styles from './styles/template.module.scss';
+import styles from './styles/core/compIndex.module.scss';
 
 const Template = (props) => {
 

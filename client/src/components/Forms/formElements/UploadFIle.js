@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import firebase from 'firebase';
 import axios from 'axios';
-import styles from '../../styles/formStyles/uploadForm.module.scss'
-
-import placeholder from '../../../images/camera.png';
+import styles from '../../styles/formStyles/editaccount.module.scss'
+import uploadIcon from '../../../images/upload.png'
+import placeholder from '../../../images/picture.png';
 
 const UploadFile = (props) => {
     let history = useHistory();
@@ -88,14 +88,18 @@ const UploadFile = (props) => {
     }
     if(!imageUrl){
         return(
-            <div className={styles.uploadContainer}>
+            <div className={styles.uploadContainer}> 
                 <form onSubmit={storeImageHandler} className={styles.uploadForm}>
+                    
                     <div className={"form-group "}>
-                        <label className={styles.formLabel}>Upload Here</label>
+                    
+                        <span><img src={uploadIcon} alt="upload icon" /><label className={styles.formLabelB}>Upload Here</label></span>
+                        
                         <input onChange={fileChangeHandler} type="file" className={"form-control-file " + styles.uploadInput}  />
                     </div>
                    {src ? <button type="submit" className="btn btn-danger">Upload</button> : null}
                 </form>
+                
                 <div className={styles.imgDisplay}>
                     <img src={placeholder}  alt="Preview of uploaded image" />
                 </div>
@@ -108,7 +112,7 @@ const UploadFile = (props) => {
         <div className={styles.uploadContainer}>
             <form onSubmit={saveImageInfoHandler} className={styles.uploadForm}>
                 <div className={"form-group "+ styles.inputStyle}>
-                    <label className={styles.formLabel}>Add a clever caption</label>
+                    <label className={styles.formLabelB}>Add a clever caption</label>
                     <input onChange={(e) => captionChangeHandler(e)} type="text" className={"form-control " } />
                 </div>
                 <button className="btn btn-success" type="submit">Save Result</button>

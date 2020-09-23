@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
-import styles from "../styles/navigation.module.scss";
+import styles from "../styles/UI/navigation.module.scss";
 
 const Navbar = () => {
     let history = useHistory();
