@@ -5,6 +5,7 @@ import ActiveUsers from '../components/UI/UserImgList'
 import Title from '../components/UI/Title'
 import axios from 'axios'
 import loveBirdsImg from '../images/lovebirds.png'
+import { PushSpinner } from "react-spinners-kit";
 
 const Home = (props)=> {
     const [error, setError] = useState(null)
@@ -34,7 +35,9 @@ const Home = (props)=> {
     if(loading){
         return(
             <Template>
-                <h1>Loading...</h1>
+                <div className={"container "} style={{minHeight: "50em", paddingTop: "24em", paddingLeft: "25%"}}>
+                    <PushSpinner size={80} color="#bc4e4e" loading={loading} />
+                </div> 
             </Template>
         )
     }

@@ -22,7 +22,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 [x] Display image text on the profile page
 [x] Decline an invitation functionality
 [x] Under connection page make sure that page refreshes when invitation and connection actions are enacted
-[] restyle the profile page
-[] Change avatar functionality
+[x] restyle the profile page
+[x] Change avatar functionality
+[] Ability to enter a chat from users profile if a match exists
+[] Ability to view users profile from the connections place
+[] Restyle the invitations section
 [] Remove a connection
 [] Delete image functionality

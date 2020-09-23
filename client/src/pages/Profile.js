@@ -6,6 +6,9 @@ import Template from '../components/Template'
 import Title from '../components/UI/Title'
 import FileUpload from '../components/Forms/formElements/UploadFIle'
 import ImageCard from '../components/Image'
+import { PushSpinner } from "react-spinners-kit";
+import addIcon from '../images/add.png'
+import editIcon from '../images/edit.png'
 
 const Profile = (props) => {
     const [accountInfo, setAccountInfo] = useState(null);
@@ -13,6 +16,7 @@ const Profile = (props) => {
     const [refresh, setRefresh] = useState(false);
     const [isUpload, setIsUpload] = useState(false);
     const [isEditForm, setIsEditForm] = useState(false);
+    const [comment, setComment] = useState("");
 
     const token = sessionStorage.getItem('auth-token');
 
@@ -66,7 +70,9 @@ const Profile = (props) => {
     if(loading || !accountInfo){
        return (
            <Template>
-               <h1>Loading...</h1>
+                <div className={"container "} style={{minHeight: "50em", paddingTop: "24em", paddingLeft: "25%"}}>
+                    <PushSpinner size={80} color="#bc4e4e" loading={true} />
+                </div> 
            </Template>
        ) 
     }
@@ -76,7 +82,10 @@ const Profile = (props) => {
                 <div className={"col-lg-5 px-5 py-1 "+styles.formCol}>
                     <Title title="User Information"/>
                     <div className={"row my-2 d-flex justify-content-end "+styles.toggleBtn}>
-                     <button onClick={toggleEdit} className={"btn btn-danger btn-lg "}>edit</button>
+                        <p>{comment === "edit" && !isEditForm ? comment : ""}</p>
+                     <button onMouseOut={()=> setComment('')} onMouseOver={() => setComment('edit')} onClick={toggleEdit} className={"btn btn-danger btn-lg "}>
+                        <img src={editIcon} alt="edit info icon" style={{background: "white"}} />
+                     </button>
                    </div>
                     {/* display the form */}
                    {
@@ -110,7 +119,10 @@ const Profile = (props) => {
                 <div className={"col-lg-7 p-0 "+ styles.imgColumn }>
                     <Title title="User Images"/>   
                    <div className={"row my-2 d-flex justify-content-end "+styles.toggleBtn}>
-                     <button onClick={toggleUpload} className={"btn btn-danger btn-lg"}>new</button>
+                   <p>{comment === "add" && !isUpload ? comment : ""}</p>
+                     <button onMouseOut={()=> setComment('')} onMouseOver={() => setComment('add')} onClick={toggleUpload} className={"btn btn-danger btn-lg"}>
+                         <img src={addIcon} alt="add image icon" style={{background: "white"}} />
+                     </button>
                    </div>
                     <div className={"row "+styles.uploadSection}>
                         {uploadSection}

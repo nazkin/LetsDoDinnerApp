@@ -5,6 +5,7 @@ import Template from '../components/Template'
 import Display from '../components/ChatDisplay'
 import MessageInput from '../components/ChatForm'
 import Title from '../components/UI/Title'
+import { PushSpinner } from "react-spinners-kit";   
 
 const Messages = () => {
     const [loading, setLoading] = useState(false)
@@ -16,6 +17,7 @@ const Messages = () => {
     const chatId = id;
 
     const getChat = () => {
+        
         axios({
             method:'GET',
             url: `http://localhost:8080/api/send/chatdata/${chatId}`,
@@ -23,9 +25,11 @@ const Messages = () => {
                 'auth-token': token
             }
         }).then(res => {
+            
             console.log(res)
             setChatData(res.data.info);
         }).catch(err => {
+            
             console.log(err)
         })
     }
@@ -39,13 +43,17 @@ const Messages = () => {
     const messageSentUpdate = () => {
         setSent(prev => !prev)
     }
+
     if(!chatData){
         return(
             <Template>
-                <h1>No data available</h1>
+                <div className={"container "} style={{minHeight: "50em", paddingTop: "24em", paddingLeft: "25%"}}>
+                    <PushSpinner size={80} color="#bc4e4e" loading={true} />
+                </div>   
             </Template>
         )
     }
+
     const title = `${chatData.users[0].nickname} <3 <3 <3 ${chatData.users[1].nickname}`
     return(
         <Template>

@@ -4,7 +4,7 @@ import axios from 'axios'
 import Title from '../components/UI/Title'
 import Invitations from '../components/Invitations'
 import ConnectList from '../components/ConnectionList'
-
+import { PushSpinner } from "react-spinners-kit";
 const Connections = () => {
     const [info, setInfo] = useState({})
     const [loading, setLoading] = useState(false)
@@ -39,7 +39,9 @@ const Connections = () => {
     if(loading || !info){
         return(
             <Template>
-                <h1>Loading</h1>
+                <div className={"container "} style={{minHeight: "50em", paddingTop: "24em", paddingLeft: "25%"}}>
+                    <PushSpinner size={80} color="#bc4e4e" loading={loading} />
+                </div>
             </Template>
         )
     }

@@ -5,6 +5,7 @@ import {useParams} from 'react-router-dom'
 import UsersImages from '../components/UI/ImageRow'
 import Title from '../components/UI/Title'
 import axios from 'axios'
+import { PushSpinner } from "react-spinners-kit";
 
 const calcBirthday = (dateString) => {
     var today = new Date();
@@ -69,7 +70,9 @@ const ProfileDisplay = () =>{
     if(loading || !account){
         return(
             <Template>
-                <h1>Loading...</h1>
+                <div className={"container "} style={{minHeight: "50em", paddingTop: "24em", paddingLeft: "25%"}}>
+                    <PushSpinner size={80} color="#bc4e4e" loading={loading} />
+                </div>
             </Template>
         )
     }
