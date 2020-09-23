@@ -25,9 +25,9 @@ const Image = ({url, caption, token, account}) => {
         <div className={"card " + styles.imageCard} >
             <img className={"card-img-top " + styles.cardImg} src={url} alt="Card image cap" />
             <div className="card-body text-center d-flex flex-column jusify-content-betwen align-items-center">
-                <p className={"card-text mt-1 " + styles.imgCaption}>{caption}</p>
+                <p className={"card-text " + styles.imgCaption}>"{caption}"</p>
                 <div className="mb-1">
-                    <button onClick={()=> setAvatarHandler(url)} className="btn btn-link">Set as Avatar</button>
+                    <button onClick={()=> setAvatarHandler(url)} className="btn btn-link">Avatar</button>
                     <button className="btn btn-link">Delete</button>
                 </div>
             </div>

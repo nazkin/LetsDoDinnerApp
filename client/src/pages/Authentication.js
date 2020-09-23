@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import axios from 'axios';
-import styles from './styles/authentication.module.scss';
+import styles from './styles/index.module.scss';
 import AuthForm from '../components/Forms/AuthForm';
 
 

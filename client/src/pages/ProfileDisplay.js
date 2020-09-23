@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import Template from '../components/Template'
-import styles from './styles/profileDisplay.module.scss'
+import styles from './styles/index.module.scss'
 import {useParams} from 'react-router-dom'
 import UsersImages from '../components/UI/ImageRow'
 import Title from '../components/UI/Title'
@@ -77,8 +77,8 @@ const ProfileDisplay = () =>{
     return(
         <Template>
             <div className="container-fluid">
-                <div className="row p-5">
-                    <div className={"col-lg-6 "+ styles.descCol}>
+                <div className={"row p-3 " +styles.pdMain}>
+                    <div className={"col-lg-5 "+ styles.descCol}>
                         <Title title={account.nickname} />
                         <div className={""+styles.descriptor}>
                             <h4>Description</h4>
@@ -98,7 +98,7 @@ const ProfileDisplay = () =>{
                         </div>
                         {!hasConnection ? <button onClick={inviteConnectionHandler} className="btn btn-danger mx-5 my-5">Invite Connection</button> : null}
                     </div>
-                    <div className="col-lg-6">
+                    <div className="col-lg-7">
                         <UsersImages images={account.images}/>
                     </div>
                 </div>

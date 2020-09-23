@@ -1,31 +1,27 @@
 .uploadForm{
     width: 100%;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 3rem;
+    background:rgba(188,78,78,.7);
+    border: 1px solid rgba(188,78,78,.7);
 
 }
 .formLabel{
     font-size: 24px;
-    color: rgb(253, 124, 124);
+    color: darkslategray;
    
 }
 .uploadInput{
     width: 100%;
-    background-color: rgb(238, 190, 190);
 }
 
 .imgDisplay{
     height: 15rem;
     width: 18rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    margin-right: 2rem;
-    padding: 5rem 8rem;
-    border: 1px dotted grey;
+    margin-top: 2px;
+    background: darkslategray;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -47,5 +43,6 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    background: white;
   
 }

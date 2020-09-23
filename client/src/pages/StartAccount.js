@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import styles from './styles/accountStart.module.scss';
+import styles from './styles/index.module.scss';
 import FormB from '../components/Forms/AccountFormB';
 import FormA from '../components/Forms/AccountFormA';
 import axios from 'axios';

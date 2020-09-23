@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './styles/compIndex.module.scss'
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 const ChatDisplay = ({chatData}) => {
+
+
     let messageDisplay = null;
     if(chatData){
         const userA = chatData.users[0].userId
@@ -9,7 +12,7 @@ const ChatDisplay = ({chatData}) => {
 
         messageDisplay = chatData.messages.map((msg, i) =>{
 
-            if(i < chatData.messages.length - 10){
+            if(i < chatData.messages.length - 20){
                 return
             }
             if(msg.sentBy === userA){
@@ -22,12 +25,14 @@ const ChatDisplay = ({chatData}) => {
 
     return(
         <div className={"row "+styles.chatDisplayRow}>
-            <div className={"col-md-8 " + styles.chatDisplayCol}>
+            <div className={"col-md-8 p-0 " + styles.chatDisplayCol}>
                 <div className={styles.chatUserImages}>
                     <img src={chatData.users[0].avatar} alt="First user image" className={styles.chatDisplayImg} />
                     <img src={chatData.users[1].avatar} alt="Second user image" className={styles.chatDisplayImg} />
                 </div>
-                {messageDisplay}
+                <ScrollToBottom  className={styles.chatBox}>
+                    {messageDisplay}
+                </ScrollToBottom>      
             </div>
             
         </div>

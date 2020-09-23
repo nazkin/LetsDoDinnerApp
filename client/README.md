@@ -19,9 +19,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Stage 3
 [] Filter users based on ages, not only on gender
-[] Display image text on the profile page
+[x] Display image text on the profile page
 [x] Decline an invitation functionality
 [x] Under connection page make sure that page refreshes when invitation and connection actions are enacted
+[] restyle the profile page
 [] Change avatar functionality
 [] Remove a connection
 [] Delete image functionality

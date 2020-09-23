@@ -1,3 +1,58 @@
+//Auth
+.authContainer{
+    
+    background-color: silver;
+}
+.authImage{
+    background-image: url('../../images/date.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+}
+.formColumn{
+    width: 100%;
+    min-height: 100vh;
+    padding: 5rem 5rem 0 0;
+    background: rgb(56,23,23);
+    background: linear-gradient(151deg, rgba(56,23,23,1) 0%, rgba(188,78,78,1) 100%);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.switchAuth{
+    margin-top: 4rem;
+    color: white;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+}
+.authTitle{
+    color: white;
+    margin-bottom: 5rem;
+}
+//AccountStart
+.startContainer{
+    min-height: 100vh;
+    background: rgb(56,23,23);
+    background: linear-gradient(151deg, rgba(56,23,23,1) 0%, rgba(188,78,78,1) 100%);
+
+}
+.titleBox{
+    height: 10vh;
+    background-color:rgba(56,23,23,1);
+    color: rgb(255, 173, 173);
+    font-size: 52px;
+    padding-left: 2rem;
+}
+
+//Home
 .heroContainer{
     background: linear-gradient(180deg, rgba(201,100,100,1) 0%, rgba(215,149,149,1) 27%, rgba(241,241,241,1) 100%);
 }
@@ -33,4 +88,88 @@
 .loveImg{
     width: 100%;
     height: auto;
+}
+
+
+//Profile
+.updateRow{
+    padding: 0.11rem 0.11rem;
+ 
+    
+}
+.formCol{
+    background: #fff6f6;
+    padding: 0px;
+}
+.imgColumn{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    background: #fff6f6;
+
+}
+.images{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 100%;
+    background: #fff0f0;
+    min-height: 40rem;
+}
+
+.uploadSection{
+   width: 100%;
+   z-index: 10000;
+   position: relative;
+   background: white;
+}
+
+.toggleBtn{
+    width: 100%;
+    button{
+        border-radius: 50% !important;
+        background: rgb(56,23,23);
+        background: linear-gradient(151deg, rgba(56,23,23,1) 0%, rgba(188,78,78,1) 100%);
+        color: white !important;
+    }
+    button:hover{
+        background: linear-gradient(120deg, rgba(56,23,23,1) 0%, rgba(188,78,78,1) 100%);
+        opacity: 0.8;
+    
+    }
+}
+
+
+//ProfileDisplay
+.pdMain{
+    background-color: #faf6f6;
+}
+.descCol{
+    
+    
+}
+.descriptor{
+    width: 100%;
+    padding: 1em;
+   
+    h4{
+        font-size: 30px;
+        color: darkslategray;
+        font-weight: 200;
+        padding: 10px;
+        border-bottom: 1px double rgba(188,78,78,1);
+    }
+
+    p{
+        font-size: 22px;
+        color: rgb(27, 27, 27);
+        font-weight: 200;
+        padding: 10px;
+        text-align: center;
+        width: 100%;
+    }
 }

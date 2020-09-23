@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './styles/compIndex.module.scss'
 import {useHistory} from 'react-router-dom'
 import axios from 'axios'
+import noInvitesIcon from '../images/invitation.png'
 
 const InvitationList = ({likes, token, type, refresh}) => {
     const history = useHistory();
@@ -34,7 +35,8 @@ const InvitationList = ({likes, token, type, refresh}) => {
         refresh()
     }
     let likeList = (
-                <div className="row px-5">
+                <div className="row d-flex justify-content-evenly align-items-center py-5 px-5">
+                    <img src={noInvitesIcon} alt="no invitations placeholder icon" className={styles.placeholderIcon}/>
                     <h1>No new invitations to connect</h1>
                 </div>
     );

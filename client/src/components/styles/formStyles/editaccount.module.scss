@@ -1,32 +1,74 @@
 
-.mainRow{
-    background-color:rgba(56,23,23,0.2);
-    padding: 2rem;
+// .mainRow{
+//     background-color:rgba(56,23,23,0.2);
+//     padding: 2rem;
+//     background: rgb(167, 97, 97)
     
     
-}
+// }
 .accountForm{
-    background: #f1f1f1f1;
-    padding: 1rem;
-}
-.imgCol{
-    height: 80vh;
-    background-image: url('../../../images/joinus.jpeg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-.formCol{
-    padding: 1rem;
-    color: whitesmoke;
-    background: linen;
-}
+    padding: 0.1rem;
+    width: 100%;
 
-.formLabel{
-    font-size: 24px;
-    color: darkslategrey;
-    border-bottom: 4px solid  rgb(243, 76, 76);
 }
+// .imgCol{
+//     height: 80vh;
+//     background-image: url('../../../images/joinus.jpeg');
+//     background-size: cover;
+//     background-repeat: no-repeat;
+//     background-position: center center;
+// }
+// .formCol{
+//     padding: 1rem;
+//     color: whitesmoke;
+//     background: rgb(56,23,23);
+//     background: linear-gradient(151deg, rgba(56,23,23,1) 0%, rgba(188,78,78,1) 100%);
+// }
+
 .textArea{
  width: 100%;
+ padding: 10px;
+ background-color: rgba(188,78,78, 0.5)  !important;
+ color: rgb(77, 0, 0)  !important;
+ border: none !important;
+ border-bottom: 1px solid rgb(117, 9, 9) !important;
+}
+.textAreaB{
+    padding: 10px;
+    width: 100%;
+    background:transparent;
+    border: none !important;
+}
+.formLabel{
+    font-size: 20px;
+    color: darkslategray;
+    padding: 0.2rem;
+    border-bottom: 1px solid darkslategray;
+}
+.formInput{
+    background-color: rgba(188,78,78, 0.5)  !important;
+    color: rgb(77, 0, 0)  !important;
+    border: none !important;
+    border-bottom: 1px solid rgb(117, 9, 9) !important;
+ 
+}
+.formInput:focus{
+    box-shadow: inset 0 -1px 0 rgb(167, 97, 97) !important;
+}
+.formInputB{
+    background-color: transparent!important;
+    color: black !important;
+    border: none !important;
+    border-bottom: 1px solid transparent !important;
+ 
+}
+.subBtn{
+    border-radius: 0px !important;
+    background: rgb(56,23,23);
+    background: linear-gradient(151deg, rgba(56,23,23,1) 0%, rgba(188,78,78,1) 100%);
+}
+.subBtn:hover{    
+    background: linear-gradient(120deg, rgba(56,23,23,1) 0%, rgba(188,78,78,1) 100%);
+    opacity: 0.8;
+
 }

@@ -42,7 +42,7 @@ const Messages = () => {
     if(!chatData){
         return(
             <Template>
-
+                <h1>No data available</h1>
             </Template>
         )
     }

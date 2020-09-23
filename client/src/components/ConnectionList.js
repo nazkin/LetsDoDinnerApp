@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './styles/compIndex.module.scss'
 import {useHistory} from 'react-router-dom'
-
+import connectIcon from '../images/connection.png'
 const ConnectionList = ({connects, chats}) => {
     let history = useHistory();
 
@@ -10,7 +10,8 @@ const ConnectionList = ({connects, chats}) => {
     }
 
     let connectList = (
-            <div className="row px-5">
+            <div className="row d-flex justify-content-evenly align-items-center py-5 px-5">
+                <img src={connectIcon} alt="no invitations placeholder icon" className={styles.placeholderIcon}/>
                 <h1>No connections. Start searching</h1>
             </div>
     );

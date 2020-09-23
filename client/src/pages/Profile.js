@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import EditAccountForm from '../components/Forms/AccountEditForm'
-import styles from './styles/profile.module.scss'
+import styles from './styles/index.module.scss'
 import Template from '../components/Template'
 import Title from '../components/UI/Title'
 import FileUpload from '../components/Forms/formElements/UploadFIle'
@@ -12,6 +12,7 @@ const Profile = (props) => {
     const [loading, setLoading] = useState(false);
     const [refresh, setRefresh] = useState(false);
     const [isUpload, setIsUpload] = useState(false);
+    const [isEditForm, setIsEditForm] = useState(false);
 
     const token = sessionStorage.getItem('auth-token');
 
@@ -41,6 +42,9 @@ const Profile = (props) => {
     const toggleUpload = () => {
         setIsUpload(!isUpload);
     }
+    const toggleEdit = () => {
+        setIsEditForm(!isEditForm);
+    }
 
     let images = null;
     let uploadSection = null;
@@ -57,7 +61,7 @@ const Profile = (props) => {
     }
 
 
-    if(loading){
+    if(loading || !accountInfo){
        return (
            <Template>
                <h1>Loading...</h1>
@@ -67,21 +71,25 @@ const Profile = (props) => {
     return(
         <Template>
             <div className={"row "+ styles.updateRow}>
-                <div className={"col-lg-6 px-5 py-1"}>
+                <div className={"col-lg-5 px-5 py-1 "+styles.formCol}>
                     <Title title="User Information"/>
-                    {/* display the form */}
-                   {!accountInfo ? null : <EditAccountForm country={accountInfo.country} city={accountInfo.city} region={accountInfo.region} id={accountInfo._id} nickname={accountInfo.nickname} desc={accountInfo.description} interest={accountInfo.interestedIn} minAge={accountInfo.matchAgeMin} maxAge={accountInfo.matchAgeMax} />}
-                </div>
-                <div className={"col-lg-6 "+ styles.imgColumn }>
-                    {/* display the images */}
-                    <div className={"row "+styles.images}>
-                        {images}
-                    </div>
-                   <div className="row my-2 d-flex justify-content-center">
-                     <button onClick={toggleUpload} className={"btn btn-danger btn-lg float-right " + styles.toggleBtn}>+</button>
+                    <div className={"row my-2 d-flex justify-content-end "+styles.toggleBtn}>
+                     <button onClick={toggleEdit} className={"btn btn-danger btn-lg float-right"}>edit</button>
                    </div>
-                    <div className={"row d-flex justify-content-center my-2"}>
+                    {/* display the form */}
+                   {!isEditForm ? <EditAccountForm toEdit={false} country={accountInfo.country} city={accountInfo.city} region={accountInfo.region} id={accountInfo._id} nickname={accountInfo.nickname} desc={accountInfo.description} interest={accountInfo.interestedIn} minAge={accountInfo.matchAgeMin} maxAge={accountInfo.matchAgeMax} /> : <EditAccountForm toEdit={true} country={accountInfo.country} city={accountInfo.city} region={accountInfo.region} id={accountInfo._id} nickname={accountInfo.nickname} desc={accountInfo.description} interest={accountInfo.interestedIn} minAge={accountInfo.matchAgeMin} maxAge={accountInfo.matchAgeMax} />}
+                </div>
+                <div className={"col-lg-7 p-0 "+ styles.imgColumn }>
+                    <Title title="Photographs"/>   
+                   <div className={"row my-2 d-flex justify-content-end "+styles.toggleBtn}>
+                     <button onClick={toggleUpload} className={"btn btn-danger btn-lg"}>+</button>
+                   </div>
+                    <div className={"row "+styles.uploadSection}>
                         {uploadSection}
+                    </div>
+                                        {/* display the images */}
+                    <div className={"row my-2 " +styles.images}>
+                        {images}
                     </div>
                 </div>
             </div>        
