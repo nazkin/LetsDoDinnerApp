@@ -7,16 +7,16 @@ import Title from '../components/UI/Title'
 import axios from 'axios'
 import { PushSpinner } from "react-spinners-kit";
 
-const calcBirthday = (dateString) => {
-    var today = new Date();
-    var birthDate = new Date(dateString);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-    }
-    return age;
-}
+// const calcBirthday = (dateString) => {
+//     var today = new Date();
+//     var birthDate = new Date(dateString);
+//     var age = today.getFullYear() - birthDate.getFullYear();
+//     var m = today.getMonth() - birthDate.getMonth();
+//     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+//         age--;
+//     }
+//     return age;
+// }
 
 const ProfileDisplay = () =>{
     const [account, setAccount] = useState(null)
@@ -32,7 +32,7 @@ const ProfileDisplay = () =>{
         console.log(id);
        axios({
            method: "GET",
-           url: `http://localhost:8080/api/account/info/${accountId}`,
+           url: `/api/account/info/${accountId}`,
            headers: {
                "auth-token": token
            }
@@ -97,7 +97,7 @@ const ProfileDisplay = () =>{
                         </div>
                         <div className={""+styles.descriptor}>
                             <h4>Age</h4>
-                            <p>{calcBirthday(account.dob)}</p>
+                            <p>{account.age}</p>
                         </div>
                         {!hasConnection ? <button onClick={inviteConnectionHandler} className="btn btn-danger mx-5 my-5">Invite Connection</button> : null}
                     </div>

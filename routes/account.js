@@ -4,6 +4,19 @@ const User = require('../models/User')
 const Account = require('../models/Account')
 const Image = require('../models/Image')
 
+//Helper function
+
+const calcBirthday = (dateString) => {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
+
 //User creates account
 
 router.post('/create', jwtVerify ,async (req, res)=> {
@@ -13,6 +26,7 @@ router.post('/create', jwtVerify ,async (req, res)=> {
         description: req.body.description,
         gender: req.body.gender,
         dob: new Date(req.body.dob),
+        age: calcBirthday(req.body.dob),
         interestedIn: req.body.interestedIn,
         matchAgeMax: parseInt(req.body.ageMax),
         matchAgeMin: parseInt(req.body.ageMin),
@@ -133,18 +147,19 @@ router.get('/recent-users', jwtVerify, async (req, res) => {
         accounts.forEach((account, i) => {
             //remove the user from the list
             const isUser = account.userId === req.user.userId
-            //Filter out the age
-
+            //filter accounts based on users age preferences
+            const isRightAge = account.age <= usersAccount.matchAgeMax && account.age >= usersAccount.matchAgeMin
             //filter out the genders
             
             //OTHER LOGIC FOR FILTERING SPECIFIC USERS
-            if(!isUser){
+            if(!isUser && isRightAge){
                 recentAccounts.push(account)
             }
         })
         res.json({
             message: "Recent accounts retrieved",
-            accounts: recentAccounts
+            accounts: recentAccounts,
+            user: usersAccount
         })
     } catch(err) {
         console.log(err);
@@ -153,6 +168,65 @@ router.get('/recent-users', jwtVerify, async (req, res) => {
             error: err
         })
     }
+})
+
+router.post('/filtered-users', jwtVerify, async (req, res) => {
+    const filteredAccounts = []
+    let accounts;
+    const usersAccount = await Account.findOne({userId: req.user.userId})
+
+    const filters = {
+        interestedIn: usersAccount.interestedIn,
+        matchAgeMax: usersAccount.matchAgeMax,
+        matchAgeMax: usersAccount.matchAgeMin,
+        city: '',
+        region: '',
+        country: ''
+    }
+    
+    //Basic filtering by gender, reduces the size of data retrieved by the largest amount
+    if(usersAccount.interestedIn !== 'everyone') {
+        accounts = await Account.find({gender: usersAccount.interestedIn})
+    }else {
+        accounts = await Account.find({})
+    }
+
+    accounts.forEach((account, i) => {
+        //remove the user from the list of accounts
+        const isUser = account.userId === req.user.userId
+        //filter accounts based on users age preferences
+        const isRightAge = account.age <= filters.matchAgeMax && account.age >= filters.matchAgeMin
+        //filter accounts based on users gender preferences
+        let isRightGender;
+        if(filters.interestedIn === 'everyone'){
+            isRightGender = true
+        }else if(interestedIn === account.gender){
+            isRightGender = true
+        }else {
+            isRightGender = false
+        }
+        //filter accounts based on location
+        let isRightLocation;
+        if(!filters.city && !filters.country && !filters.region){
+           isRightLocation = true;
+        }else if(filters.city === account.city && filters.country === account.country && filters.region === account.region){
+            isRightLocation = true
+        }else {
+            isRightLocation = false
+        }
+
+        //Filter out the age
+
+        //filter out the genders
+        
+        //OTHER LOGIC FOR FILTERING SPECIFIC USERS
+        if(!isUser){
+            filteredAccounts.push(account)
+        }
+    })
+     
+
+
 })
 
 module.exports = router

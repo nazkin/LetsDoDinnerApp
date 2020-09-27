@@ -25,7 +25,7 @@ const Profile = (props) => {
         setLoading(true);
         axios({
             method: 'GET',
-            url: 'http://localhost:8080/api/account/info',
+            url: '/api/account/info',
             headers: {
                 'auth-token': token
             }

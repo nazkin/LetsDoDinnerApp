@@ -1,6 +1,6 @@
 //Template
 .main {
-    background: #fff0f0;
+    background: #fff6f6;
    }
 header[role="banner"] {
   width: 100%;
@@ -266,3 +266,52 @@ header[role="banner"] {
     text-align: end;
     color: rgb(148, 34, 34);
 }
+
+//userListRow.js
+.userElement{
+    width: 100%; 
+    height: 10rem;
+    padding: 15px 30px;
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-top: 2px solid darkred;
+    cursor: pointer;
+}
+.userElement:hover {
+    background: whitesmoke;
+}
+.userElAvatar{
+    width: 10rem;
+    height: 100%;
+    background: grey;
+    border-radius: .5rem;
+    overflow: hidden;
+    
+}
+.userElTxt{
+    max-width: 70%;
+    padding: 0px 15px;
+    h1 {
+        font-size: 32px;
+        color: darkred;
+
+        span {
+            font-size: 24px;
+            font-weight: 100;
+            font-style: italic;
+        }
+    }
+    p{
+        font-size: 17px;
+        color: darkslategray;
+    }
+    h5 {
+        font-size: 18px;
+        color: silver;
+        font-style: italic;
+    }
+}
+

@@ -21,7 +21,7 @@ const UserImgList = (props) => {
 
     return(
         <div className={"row p-3 my-3 "+ styles.userImgRow}>
-            {userList}
+            {props.users ? userList : <h1>Looking for users</h1>}
         </div>
     )
 

@@ -29,3 +29,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 [] Restyle the invitations section
 [] Remove a connection
 [] Delete image functionality
+[] Implement changes in search options and search by location

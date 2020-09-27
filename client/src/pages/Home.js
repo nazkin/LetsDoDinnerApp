@@ -18,7 +18,7 @@ const Home = (props)=> {
         setLoading(true)
         axios({
             method: "GET",
-            url: "http://localhost:8080/api/account/recent-users",
+            url: "/api/account/recent-users",
             headers: {
                 'auth-token': token
             }

@@ -22,6 +22,9 @@ const accountSchema = new Schema({
         type: Date,
         required: true
     },
+    age: {
+        type: Number, 
+    },
     interestedIn:{
         type: String
     },

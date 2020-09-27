@@ -28,7 +28,7 @@ const Authentication = (props)=> {
             return;
         }
         try {
-            const result = await axios.post('http://localhost:8080/api/user/register', {
+            const result = await axios.post('/api/user/register', {
                 name: fullName,
                 email: email,
                 password: password,
@@ -50,7 +50,7 @@ const Authentication = (props)=> {
             return;
         }
       
-        const result = await axios.post('http://localhost:8080/api/user/login', {
+        const result = await axios.post('/api/user/login', {
             email: email,
             password: password,
          

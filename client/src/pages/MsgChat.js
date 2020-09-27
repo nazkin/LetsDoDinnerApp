@@ -20,7 +20,7 @@ const Messages = () => {
         
         axios({
             method:'GET',
-            url: `http://localhost:8080/api/send/chatdata/${chatId}`,
+            url: `/api/send/chatdata/${chatId}`,
             headers: {
                 'auth-token': token
             }
