@@ -192,10 +192,22 @@
     padding: 10px;
     background: #f1f1f1;
     min-height: 30em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-left: 1px double darkslategray;
 
     h2 {
         width: 100%;
         text-align: center;
         font-weight: 100;
+        padding: 5px;
+        background: silver;
+        color: darkslategray;
     }
+}
+.searchBtn{
+    width: 100%;
+    padding: 10px; 
+    text-align: center;
 }

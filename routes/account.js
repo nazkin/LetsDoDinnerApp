@@ -169,64 +169,104 @@ router.get('/recent-users', jwtVerify, async (req, res) => {
         })
     }
 })
+//Filtering users during the user search
+const ascending = (a,b) => {
+    let comparison = 0
+    const ageA = a.age
+    const ageB = b.age
+
+    if(ageA > ageB) {
+        comparison = 1
+    }else if(ageB < ageA) {
+        comparison = -1
+    }
+
+    return comparison
+
+}
+const descending = (a,b) => {
+    let comparison = 0
+    const ageA = a.age
+    const ageB = b.age
+
+    if(ageA < ageB) {
+        comparison = 1
+    }else if(ageB > ageA) {
+        comparison = -1
+    }
+
+    return comparison
+
+}
 
 router.post('/filtered-users', jwtVerify, async (req, res) => {
     const filteredAccounts = []
-    let accounts;
-    const usersAccount = await Account.findOne({userId: req.user.userId})
+    let accounts
+    const usersAccount = await Account.findOne({ userId: req.user.userId })
 
     const filters = {
-        interestedIn: usersAccount.interestedIn,
-        matchAgeMax: usersAccount.matchAgeMax,
-        matchAgeMax: usersAccount.matchAgeMin,
-        city: '',
-        region: '',
-        country: ''
+        interestedIn: req.body.interestedIn,
+        matchAgeMax: req.body.matchAgeMax,
+        matchAgeMin: req.body.matchAgeMin,
+        location: req.body.location,
+        sort: req.body.sort
+    }
+    try {
+            //Basic filtering by gender, and by location if requested 
+        if(filters.interestedIn !== 'everyone' && filters.location === 'none') {
+            accounts = await Account.find({ gender: filters.interestedIn })
+        }else if(filters.interestedIn !== 'everyone' && filters.location === 'sameCountry') {
+            accounts = await Account.find({ gender: filters.interestedIn, country: usersAccount.country })
+        }else if(filters.interestedIn !== 'everyone' && filters.location === 'sameRegion') {
+            accounts = await Account.find({ gender: filters.interestedIn, country: usersAccount.country, region: usersAccount.region })
+        }else if(filters.interestedIn !== 'everyone' && filters.location === 'sameCity') {
+            accounts = await Account.find({ gender: filters.interestedIn, country: usersAccount.country, region: usersAccount.region, city: usersAccount.city })
+        }else if(filters.interestedIn === 'everyone' && filters.location === 'none') {
+            accounts = await Account.find({})
+        }else if(filters.interestedIn === 'everyone' && filters.location === 'sameCountry') {
+            accounts = await Account.find({ country: usersAccount.country })
+        }else if(filters.interestedIn === 'everyone' && filters.location === 'sameRegion') {
+            accounts = await Account.find({ country: usersAccount.country, region: usersAccount.region })
+        }else if(filters.interestedIn === 'everyone' && filters.location === 'sameCity') {
+            accounts = await Account.find({ country: usersAccount.country, region: usersAccount.region, city: usersAccount.city })
+        }else {
+            accounts = await Account.find({})
+        }
+
+        accounts.forEach((account, i) => {
+            //remove the user from the list of accounts
+            let isUser = account.userId == usersAccount.userId
+            //filter accounts based on users age preferences
+            let isRightAge = account.age <= filters.matchAgeMax && account.age >= filters.matchAgeMin
+
+            //OTHER LOGIC FOR FILTERING SPECIFIC USERS
+            if(!isUser && isRightAge){
+                filteredAccounts.push(account)
+            }
+        })
+    
+
+        if(filters.sort === "youngest") {
+            filteredAccounts.sort(ascending)
+        } else if(filters.sort === "oldest") {
+            filteredAccounts.sort(descending)
+        }
+
+        res.json({
+            message: "Users filtered successfully",
+            filteredAccounts: filteredAccounts
+        })
+        
+    } catch (error) {
+        res.json({
+            message: "Error while applying filters",
+            err: error
+        })
     }
     
-    //Basic filtering by gender, reduces the size of data retrieved by the largest amount
-    if(usersAccount.interestedIn !== 'everyone') {
-        accounts = await Account.find({gender: usersAccount.interestedIn})
-    }else {
-        accounts = await Account.find({})
-    }
-
-    accounts.forEach((account, i) => {
-        //remove the user from the list of accounts
-        const isUser = account.userId === req.user.userId
-        //filter accounts based on users age preferences
-        const isRightAge = account.age <= filters.matchAgeMax && account.age >= filters.matchAgeMin
-        //filter accounts based on users gender preferences
-        let isRightGender;
-        if(filters.interestedIn === 'everyone'){
-            isRightGender = true
-        }else if(interestedIn === account.gender){
-            isRightGender = true
-        }else {
-            isRightGender = false
-        }
-        //filter accounts based on location
-        let isRightLocation;
-        if(!filters.city && !filters.country && !filters.region){
-           isRightLocation = true;
-        }else if(filters.city === account.city && filters.country === account.country && filters.region === account.region){
-            isRightLocation = true
-        }else {
-            isRightLocation = false
-        }
-
-        //Filter out the age
-
-        //filter out the genders
-        
-        //OTHER LOGIC FOR FILTERING SPECIFIC USERS
-        if(!isUser){
-            filteredAccounts.push(account)
-        }
-    })
-     
-
 
 })
+
+
 
 module.exports = router

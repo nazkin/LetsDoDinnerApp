@@ -14,6 +14,8 @@ const SearchUsers = () => {
     const [genderInterest, setGenderInterest] = useState("")
     const [maxAge, setMaxAge] = useState(60)
     const [minAge, setMinAge] = useState(18)
+    const [location, setLocation] = useState("none")
+    const [sort, setSort] = useState("none")
 
 
 
@@ -40,6 +42,32 @@ const SearchUsers = () => {
         })
     }, [])
 
+    const submitFiltersHandler = (e) => {
+        e.preventDefault()
+        setLoading(true)
+        axios({
+            method: "POST",
+            url: "/api/account/filtered-users",
+            data:{
+                interestedIn: genderInterest,
+                matchAgeMax:  maxAge,
+                matchAgeMin:  minAge,
+                location:  location,
+                sort: sort
+            },
+            headers: {
+                'auth-token': token
+            }
+        }).then(res=> {
+            console.log(res)
+            setUserData(res.data.filteredAccounts)
+            setLoading(false)
+        }).catch(err => {
+            console.log(err)
+            setLoading(false)
+        })
+    }
+
 
     if(loading || !userData) {
         return(
@@ -58,35 +86,34 @@ const SearchUsers = () => {
                 <Title title="Filter & Search Users" />
                 <UserListRow usersData={userData}/>
                 <div className={"col-md-4 "+styles.sortOptions}>
-                    <h2>filter and sort</h2>
-                    <form>
+                    <h2>Filters & Sort Options</h2>
+                    <form onSubmit={submitFiltersHandler}>
                         <div className={"form-group row "}>
-                            <label className={"col-sm-4 col-form-label "}>Gender</label>
+                            <label className={"col-sm-4 col-form-label "}>Interested In</label>
                             <div className={"col-sm-6 "}>
-                                <select className="custom-select mr-sm-2" value={genderInterest}>
-                                    <option value="none">Choose...</option>
+                                <select className="custom-select mr-sm-2" value={genderInterest} onChange={(e)=> setGenderInterest(e.target.value)}>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
-                                    <option value="other">Other</option>
+                                    <option value="everyone">Everyone</option>
                                 </select>
                             </div>
                         </div>
                         <div className={"form-group row "}>
                             <label className={"col-sm-4 col-form-label "}>Age-min</label>
                             <div className={"col-sm-4 "}>
-                                <input className={"form-control "} type="number" alt="gender type input" value={minAge} min={18} max={60}/>
+                                <input className={"form-control "} type="number" alt="gender type input" min={18} max={60} value={minAge} onChange={(e) => setMinAge(e.target.value)}/>
                             </div>
                         </div>
                         <div className={"form-group row "}>
                             <label className={"col-sm-4 col-form-label "}>Age-max</label>
                             <div className={"col-sm-4 "}>
-                                <input className={"form-control "} type="number" alt="gender type input" value={maxAge} min={18} max={60}/>
+                                <input className={"form-control "} type="number" alt="gender type input" min={18} max={60} value={maxAge} onChange={(e) => setMaxAge(e.target.value)}/>
                             </div>
                         </div>
                         <div className={"form-group row "}>
                             <label className={"col-sm-4 col-form-label "}>Filter location</label>
                             <div className={"col-sm-6 "}>
-                                <select className="custom-select mr-sm-2" value={genderInterest}>
+                                <select className="custom-select mr-sm-2" value={location} onChange={(e) => setLocation(e.target.value)}>
                                     <option value="none">Any</option>
                                     <option value="sameCountry">Same country</option>
                                     <option value="sameRegion">Same region</option>
@@ -97,15 +124,15 @@ const SearchUsers = () => {
                         <div className={"form-group row "}>
                             <label className={"col-sm-4 col-form-label "}>Sort-by</label>
                             <div className={"col-sm-6 "}>
-                            <select className="custom-select mr-sm-2">
-                                    <option value="none">Random</option>
-                                    <option value="youngest">Age (younger-older)</option>
-                                    <option value="olders">Age (older-younger)</option>
-                                    <option value="newest">Newest member</option>
+                                <select className="custom-select mr-sm-2" value={sort} onChange={(e) => setSort(e.target.value)}>
+                                        <option value="none">Random</option>
+                                        <option value="youngest">Age (younger-older)</option>
+                                        <option value="oldest">Age (older-younger)</option>
+                                        <option value="newest">Newest member</option>
                                 </select>
                             </div>
                         </div>
-                        <div>
+                        <div className={styles.searchBtn}>
                             <button type="submit" className="btn btn-warning btn-lg">Filter</button>
                         </div>
                     </form>
