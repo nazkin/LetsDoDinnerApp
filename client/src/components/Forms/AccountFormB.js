@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {useHistory, Link} from 'react-router-dom';
 import firebase from 'firebase';
-import storage from '../../Firebase/index';
 import axios from 'axios';
 import imgPlaceholder from '../../images/camera.png';
 import styles from '../styles/formStyles/introForms.module.scss';
@@ -12,7 +11,8 @@ const FormB = props => {
     const [src, setSrc] = useState(null);
     const [uploadProgress, setUploadProgress] = useState(0);
     const [imageUrl, setImageUrl] = useState("");
-    const  [caption, setCaption] = useState("");
+    const  [caption, setCaption] = useState("...");
+    const [invalid, setInvalid] = useState("");
 
     const fileChangeHandler = (e) => {
         if(e.target.files[0]){
@@ -27,6 +27,18 @@ const FormB = props => {
 
     const storeImageHandler = (e) => {
         e.preventDefault();
+        const imgName = src.name.toString()
+        const ending = imgName.substring(imgName.length - 3, imgName.length)
+        
+        //Making sure the file has the acceptable extension
+        const fileCheck = ending === "jpg" || ending === "peg" || ending === "png" || ending === "gif"
+
+        if(!src) {
+            setInvalid("Can not find upload file. Please try again")
+        }
+        if(!fileCheck) {
+            setInvalid("Improper file format. Please use image files ending in (.jpg, .jpeg, .png, .gif)")
+        }
 
         const image = src;
         const meta = image.type;
@@ -92,7 +104,7 @@ const FormB = props => {
                             <label className={styles.formLabel}>Upload a photo</label>
                             <input onChange={fileChangeHandler} type="file" className={"form-control-file " + styles.uploadInput}  />
                         </div>
-                        <button type="submit" className="btn btn-info">Upload</button>
+                        {src ? <button type="submit" className="btn btn-info">Upload</button> : null}
                     </form>)
         saveForm = null;
     } 
@@ -101,6 +113,7 @@ const FormB = props => {
             <div className={'col-md-4 '+ styles.imgCol}></div>
             <div className={'col-md-8 '+ styles.formColmn}>
                 <h1 className="">Step 2: Upload images of yourself</h1>
+                {invalid ? <p>{invalid}</p> : <p></p>}
                 {uploadForm}
 
                 <div className={styles.imgDisplay}>

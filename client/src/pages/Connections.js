@@ -5,10 +5,27 @@ import Title from '../components/UI/Title'
 import Invitations from '../components/Invitations'
 import ConnectList from '../components/ConnectionList'
 import { PushSpinner } from "react-spinners-kit";
+// import Modal from "react-modal"
+// Modal.defaultStyles.overlay.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+// const customStyles = {
+//     content : {
+//       top                   : '50%',
+//       left                  : '50%',
+//       right                 : 'auto',
+//       bottom                : 'auto',
+//       marginRight           : '-50%',
+//       transform             : 'translate(-50%, -50%)',
+//       width                 : '50rem',
+//       height                : '50rem',
+//       backgroundColor       : 'silver',
+//     }
+//   };
+
 const Connections = () => {
     const [info, setInfo] = useState({})
     const [loading, setLoading] = useState(false)
     const [refresh, setRefresh] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
 
     const token = sessionStorage.getItem('auth-token')
 
@@ -36,6 +53,7 @@ const Connections = () => {
         setRefresh(!refresh)
     }
 
+
     if(loading || !info){
         return(
             <Template>
@@ -48,6 +66,13 @@ const Connections = () => {
 
     return(
         <Template>
+            {/* <button onClick={() => setIsOpen(true)}>Open</button>
+            <Modal
+              isOpen={isOpen}
+              onRequestClose={closeModal}
+              style={customStyles}
+              contentLabel="Example Modal"
+            ></Modal> */}
             <div className="row mt-5 px-5 py-3">
                 <Title title="Likes" />
                 <Invitations type="invitation" likes={info ? info.invitations: null} token={token} refresh={refreshHandler}/>

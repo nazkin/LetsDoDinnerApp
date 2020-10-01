@@ -3,7 +3,7 @@ const jwtVerify = require('../middleware/jwtVerify')
 const User = require('../models/User')
 const Account = require('../models/Account')
 const Image = require('../models/Image')
-
+// const { ascending, descending, calcBirthday } = require('../zhelpers')
 //Helper function
 
 const calcBirthday = (dateString) => {
@@ -142,7 +142,7 @@ router.get('/recent-users', jwtVerify, async (req, res) => {
     try{
         const recentAccounts = []
         const usersAccount = await Account.findOne({userId: req.user.userId})
-        const accounts = await Account.find({gender: usersAccount.interestedIn})
+        let accounts = usersAccount.interestedIn === "everyone" ? await Account.find({}).populate('userId') : await Account.find({gender: usersAccount.interestedIn}).populate('userId')
 
         accounts.forEach((account, i) => {
             //remove the user from the list
@@ -169,35 +169,7 @@ router.get('/recent-users', jwtVerify, async (req, res) => {
         })
     }
 })
-//Filtering users during the user search
-const ascending = (a,b) => {
-    let comparison = 0
-    const ageA = a.age
-    const ageB = b.age
 
-    if(ageA > ageB) {
-        comparison = 1
-    }else if(ageB < ageA) {
-        comparison = -1
-    }
-
-    return comparison
-
-}
-const descending = (a,b) => {
-    let comparison = 0
-    const ageA = a.age
-    const ageB = b.age
-
-    if(ageA < ageB) {
-        comparison = 1
-    }else if(ageB > ageA) {
-        comparison = -1
-    }
-
-    return comparison
-
-}
 
 router.post('/filtered-users', jwtVerify, async (req, res) => {
     const filteredAccounts = []
@@ -205,7 +177,7 @@ router.post('/filtered-users', jwtVerify, async (req, res) => {
     const usersAccount = await Account.findOne({ userId: req.user.userId })
 
     const filters = {
-        interestedIn: req.body.interestedIn,
+        interestedIn: req.body.interestedIn, // rename to genderOfInterest
         matchAgeMax: req.body.matchAgeMax,
         matchAgeMin: req.body.matchAgeMin,
         location: req.body.location,
@@ -213,43 +185,92 @@ router.post('/filtered-users', jwtVerify, async (req, res) => {
     }
     try {
             //Basic filtering by gender, and by location if requested 
-        if(filters.interestedIn !== 'everyone' && filters.location === 'none') {
-            accounts = await Account.find({ gender: filters.interestedIn })
-        }else if(filters.interestedIn !== 'everyone' && filters.location === 'sameCountry') {
-            accounts = await Account.find({ gender: filters.interestedIn, country: usersAccount.country })
-        }else if(filters.interestedIn !== 'everyone' && filters.location === 'sameRegion') {
-            accounts = await Account.find({ gender: filters.interestedIn, country: usersAccount.country, region: usersAccount.region })
-        }else if(filters.interestedIn !== 'everyone' && filters.location === 'sameCity') {
-            accounts = await Account.find({ gender: filters.interestedIn, country: usersAccount.country, region: usersAccount.region, city: usersAccount.city })
-        }else if(filters.interestedIn === 'everyone' && filters.location === 'none') {
-            accounts = await Account.find({})
-        }else if(filters.interestedIn === 'everyone' && filters.location === 'sameCountry') {
-            accounts = await Account.find({ country: usersAccount.country })
-        }else if(filters.interestedIn === 'everyone' && filters.location === 'sameRegion') {
-            accounts = await Account.find({ country: usersAccount.country, region: usersAccount.region })
-        }else if(filters.interestedIn === 'everyone' && filters.location === 'sameCity') {
-            accounts = await Account.find({ country: usersAccount.country, region: usersAccount.region, city: usersAccount.city })
+        if (filters.interestedIn !== 'everyone') {
+            if(filters.location === 'none') {
+                accounts = await Account.find({ gender: filters.interestedIn }).populate('userId')
+            }else if(filters.location === 'sameCountry') {
+                accounts = await Account.find({ gender: filters.interestedIn, country: usersAccount.country }).populate('userId')
+            }else if(filters.location === 'sameRegion') {
+                accounts = await Account.find({ gender: filters.interestedIn, country: usersAccount.country, region: usersAccount.region }).populate('userId')
+            }else if(filters.location === 'sameCity') {
+                accounts = await Account.find({ gender: filters.interestedIn, country: usersAccount.country, region: usersAccount.region, city: usersAccount.city }).populate('userId')
+            }
+        } else if (filters.interestedIn === 'everyone') {
+            if(filters.location === 'none') {
+                accounts = await Account.find({}).populate('userId')
+            }else if(filters.location === 'sameCountry') {
+                accounts = await Account.find({ country: usersAccount.country }).populate('userId')
+            }else if(filters.location === 'sameRegion') {
+                accounts = await Account.find({ country: usersAccount.country, region: usersAccount.region }).populate('userId')
+            }else if(filters.location === 'sameCity') {
+                accounts = await Account.find({ country: usersAccount.country, region: usersAccount.region, city: usersAccount.city }).populate('userId')
+            }
         }else {
-            accounts = await Account.find({})
+            accounts = await Account.find({}).populate('userId')
         }
-
+        //filter user and ages
         accounts.forEach((account, i) => {
-            //remove the user from the list of accounts
-            let isUser = account.userId == usersAccount.userId
-            //filter accounts based on users age preferences
-            let isRightAge = account.age <= filters.matchAgeMax && account.age >= filters.matchAgeMin
-
+            console.log('Candidate 1 ' + account.userId);
+            console.log('Candidate 2 ' + account.userId);
             //OTHER LOGIC FOR FILTERING SPECIFIC USERS
-            if(!isUser && isRightAge){
+            if(account.userId.toString() !== usersAccount.userId.toString() && account.age <= filters.matchAgeMax && account.age >= filters.matchAgeMin){
+
                 filteredAccounts.push(account)
             }
         })
     
-
+        //Sorting logic
         if(filters.sort === "youngest") {
-            filteredAccounts.sort(ascending)
+            filteredAccounts.sort((a,b) => {
+                // var ageA = Number(calcBirthday(a.dob))
+                // var ageB = Number(calcBirthday(b.dob))
+
+                const ageA = new Date(a.dob)
+                const ageB = new Date(b.dob)
+                if(ageA < ageB) {
+                    return 1
+                }else if(ageA > ageB) {
+                    return -1
+                }else {
+                    return 0
+                }
+            })
         } else if(filters.sort === "oldest") {
-            filteredAccounts.sort(descending)
+            filteredAccounts.sort((a,b) => {
+                let comparison = 0
+                // const ageA = Number(calcBirthday(a.dob))
+                // const ageB = Number(calcBirthday(b.dob))
+                const ageA = new Date(a.dob)
+                const ageB = new Date(b.dob)
+            
+                if(ageA > ageB) {
+                    comparison = 1
+                }else if(ageA < ageB) {
+                    comparison = -1
+                }else {
+                    compariosn = 0
+                }
+            
+                return comparison
+            
+            })
+        } else if(filters.sort === "newest"){
+            filteredAccounts.sort((a,b) => {
+                let comparison = 0
+                const ageA = new Date(a.userId.date)
+                const ageB = new Date(b.userId.date)
+
+                            
+                if(ageA < ageB) {
+                    comparison = 1
+                }else if(ageA > ageB) {
+                    comparison = -1
+                }else {
+                    compariosn = 0
+                }
+                return comparison
+            
+            })
         }
 
         res.json({

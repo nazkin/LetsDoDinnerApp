@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import firebase from 'firebase';
+import storage from '../../../Firebase/index'
 import axios from 'axios';
 import styles from '../../styles/formStyles/editaccount.module.scss'
 import uploadIcon from '../../../images/upload.png'

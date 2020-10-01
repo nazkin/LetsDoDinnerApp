@@ -18,15 +18,24 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 [x] Logout button
 
 ## Stage 3
-[] Filter users based on ages, not only on gender
+[x] Filter users based on ages, not only on gender
 [x] Display image text on the profile page
 [x] Decline an invitation functionality
 [x] Under connection page make sure that page refreshes when invitation and connection actions are enacted
 [x] restyle the profile page
 [x] Change avatar functionality
+[] Make sure duplicate emails arent used for separate accounts
+[] Make sure noone under 18 is able to register
 [] Ability to enter a chat from users profile if a match exists
 [] Ability to view users profile from the connections place
 [] Restyle the invitations section
 [] Remove a connection
 [] Delete image functionality
 [] Implement changes in search options and search by location
+[] Fix min and max age!
+[] Fix everyone wanting everyone
+[] Allow to crop images
+[] Shrinking page size overloads text
+[] Add paging to search
+[] Fix updating of location information
+[] Add update to the photos

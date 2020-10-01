@@ -40,11 +40,11 @@ const Image = ({url, caption, token, account, refresh}) => {
     }
     return(
         <div className={"card " + styles.imageCard} >
-            <img className={"card-img-top " + styles.cardImg} src={url} alt="Card image cap" />
+            <img className={"card-img-bottom " + styles.cardImg} src={url} alt="Card image cap" />
+            <p className={"card-text "+styles.caption }>"{caption}"</p>
             <div className="card-body text-center d-flex flex-column jusify-content-betwen align-items-center">
-                <p className={"card-text " }>"{caption}"</p>
+                
                 <div className="row d-flex flex-row justify-content-evenly">
-                    {comment ? <div className={"col-12 "+commentStyle}>{comment}</div> : <div className={"col-12 "+commentStyle} />}
                     <div className="col-12 d-flex flex-row justify-content-center">
                         <button onMouseOut={()=> commentHandler("")} onMouseOver={()=> commentHandler("Set as avatar")} onClick={()=> setAvatarHandler(url)} className={"btn btn-link mx-4 "+styles.iconBtn}>
                             <img src={avatarIcon} alt="Add avatar icon" />
@@ -53,6 +53,7 @@ const Image = ({url, caption, token, account, refresh}) => {
                             <img src={deleteIcon} alt="Delete image icon" />
                         </button>
                     </div>
+                    {comment ? <div className={"col-12 "+commentStyle}>{comment}</div> : <div className={"col-12 "+commentStyle} />}
                 </div>
             </div>
         </div>

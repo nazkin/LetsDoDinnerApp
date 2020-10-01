@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styles from '../styles/formStyles/introForms.module.scss';
 import DatePicker from "react-datepicker";
 import axios from 'axios';
+import calcBirthday from '../../helpers/index'
 
 const FormA = props => {
     const [nickname, setNickname] = useState("");
@@ -15,6 +16,7 @@ const FormA = props => {
     const [region, setRegion] = useState("");
     const [city, setCity] = useState("");
     const [error, setError] = useState(null);
+    const [invalid, setInvalid] = useState('');
 
   
    
@@ -54,6 +56,21 @@ const FormA = props => {
     //Form Submission
     const submitFormHandler = async (e) => {
         e.preventDefault();
+        const age = calcBirthday(dob)
+        if(ageMin > ageMax){
+            setInvalid("Minimum age has to be smaller than maximum age when selecting age preferences");
+            return;
+        }
+        if(!city || !region || !country || !nickname || !desc || !gender || !interest){
+            setInvalid("One of the mandatory fields were not filled out")
+            return;
+        }
+        if(age < 18){
+            setInvalid("Users have to be older than 18 years of age to create an account with us !!!");
+            return;
+        }
+
+
         try {
             const res = await axios({
                 method: 'POST',
@@ -86,6 +103,7 @@ const FormA = props => {
         <div className={"row "+styles.mainRow}>
             <div className={"col-lg-8 "+ styles.formCol}>
                 <h1>Step 1: General Information</h1>
+                {invalid ? <p>{invalid}</p> : <p></p>}
                 <form onSubmit={(e) => submitFormHandler(e)} className={styles.accountForm}> 
                     <div className={"form-group "}>
                         <label className={styles.formLabel}>Nickname</label>

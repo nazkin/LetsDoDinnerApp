@@ -9,6 +9,25 @@ import ImageCard from '../components/Image'
 import { PushSpinner } from "react-spinners-kit";
 import addIcon from '../images/add.png'
 import editIcon from '../images/edit.png'
+import Modal from "react-modal"
+
+Modal.defaultStyles.overlay.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+
+const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)',
+      width                 : '50em',
+      maxWidth              : '100%',
+      minHeight             : '25em',
+      backgroundColor       : 'whitesmoke',
+    }
+  };
+
 
 const Profile = (props) => {
     const [accountInfo, setAccountInfo] = useState(null);
@@ -17,6 +36,7 @@ const Profile = (props) => {
     const [isUpload, setIsUpload] = useState(false);
     const [isEditForm, setIsEditForm] = useState(false);
     const [comment, setComment] = useState("");
+    const [isOpen, setIsOpen] = useState(false); //modal state
 
     const token = sessionStorage.getItem('auth-token');
 
@@ -42,14 +62,22 @@ const Profile = (props) => {
 
     const pageRefreshHandler = () => {
         setRefresh(!refresh);
-        isEditForm(false);
+        setIsEditForm(false);
         setIsUpload(false);
     }
-    const toggleUpload = () => {
-        setIsUpload(!isUpload);
-    }
+
     const toggleEdit = () => {
         setIsEditForm(!isEditForm);
+    }
+        //Control of the modal state
+    const closeModal = () => {
+        setIsOpen(false)
+    }
+    const openModal = () => {
+        setIsOpen(true)
+    }
+    const toggleUpload = () => {
+        setIsOpen(!isOpen)
     }
 
     let images = null;
@@ -60,11 +88,10 @@ const Profile = (props) => {
             return <ImageCard refresh={pageRefreshHandler} account={accountInfo._id} token={token} key={image._id} url={image.downloadUrl} caption={image.caption} /> 
         });
     }
-    if(isUpload){
-        uploadSection = (<div className={"card " + styles.uploadSection}>
-                            <FileUpload refreshAccount={pageRefreshHandler} token={token} />
-                        </div>)
-    }
+    uploadSection = (<div className={"card " + styles.uploadSection}>
+                        <FileUpload refreshAccount={pageRefreshHandler} token={token} />
+                    </div>)
+    
 
 
     if(loading || !accountInfo){
@@ -78,8 +105,19 @@ const Profile = (props) => {
     }
     return(
         <Template>
+           
+                <Modal
+                    className={styles.uploadModal}
+                    isOpen={isOpen}
+                    onRequestClose={closeModal}
+                    style={customStyles}
+                    contentLabel="Example Modal"
+                >
+                {uploadSection}
+                </Modal>
+
             <div className={"row py-5 "+ styles.updateRow}>
-                <div className={"col-lg-5 px-5 py-1 "+styles.formCol}>
+                <div className={"col-lg-5 "+styles.formCol}>
                     <Title title="User Information"/>
                     <div className={"row my-2 d-flex justify-content-end "+styles.toggleBtn}>
                         <p>{comment === "edit" && !isEditForm ? comment : ""}</p>
@@ -125,7 +163,7 @@ const Profile = (props) => {
                      </button>
                    </div>
                     <div className={"row "+styles.uploadSection}>
-                        {uploadSection}
+                       
                     </div>
                                         {/* display the images */}
                     <div className={"row " +styles.images}>

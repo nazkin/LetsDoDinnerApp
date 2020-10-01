@@ -16,6 +16,7 @@ const SearchUsers = () => {
     const [minAge, setMinAge] = useState(18)
     const [location, setLocation] = useState("none")
     const [sort, setSort] = useState("none")
+    const [invalid, setInvalid] = useState("")
 
 
 
@@ -42,9 +43,13 @@ const SearchUsers = () => {
         })
     }, [])
 
+
     const submitFiltersHandler = (e) => {
         e.preventDefault()
         setLoading(true)
+        if(minAge > maxAge) {
+            setInvalid("Minimum has to be smaller than maximum age. Please try again")
+        }
         axios({
             method: "POST",
             url: "/api/account/filtered-users",
@@ -83,10 +88,11 @@ const SearchUsers = () => {
     return(
         <Template>
             <div className={"row "+styles.searchRoot}>
-                <Title title="Filter & Search Users" />
-                <UserListRow usersData={userData}/>
-                <div className={"col-md-4 "+styles.sortOptions}>
+                <Title title="Search Users" />
+                <UserListRow  usersData={userData}/>
+                <div className={"col-lg-4 order-1 "+styles.sortOptions}>
                     <h2>Filters & Sort Options</h2>
+                    {invalid ? <p className={styles.invalid}>{invalid}</p> : <p></p>}
                     <form onSubmit={submitFiltersHandler}>
                         <div className={"form-group row "}>
                             <label className={"col-sm-4 col-form-label "}>Interested In</label>
@@ -101,13 +107,13 @@ const SearchUsers = () => {
                         <div className={"form-group row "}>
                             <label className={"col-sm-4 col-form-label "}>Age-min</label>
                             <div className={"col-sm-4 "}>
-                                <input className={"form-control "} type="number" alt="gender type input" min={18} max={60} value={minAge} onChange={(e) => setMinAge(e.target.value)}/>
+                                <input className={"form-control "} type="number" alt="gender type input" min={18} max={100} value={minAge} onChange={(e) => setMinAge(e.target.value)}/>
                             </div>
                         </div>
                         <div className={"form-group row "}>
                             <label className={"col-sm-4 col-form-label "}>Age-max</label>
                             <div className={"col-sm-4 "}>
-                                <input className={"form-control "} type="number" alt="gender type input" min={18} max={60} value={maxAge} onChange={(e) => setMaxAge(e.target.value)}/>
+                                <input className={"form-control "} type="number" alt="gender type input" min={18} max={100} value={maxAge} onChange={(e) => setMaxAge(e.target.value)}/>
                             </div>
                         </div>
                         <div className={"form-group row "}>
