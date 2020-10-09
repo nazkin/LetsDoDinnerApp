@@ -1,18 +1,19 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import styles from './styles/core/compIndex.module.scss'
 import axios from 'axios'
 import deleteIcon from '../images/trash.png'
 import avatarIcon from '../images/add-user.png'
 
-const Image = ({url, caption, token, account, refresh}) => {
+const Image = ({imageId, url, caption, token, account, refresh}) => {
 
     const [comment, setComment] = useState('')
     const [commentType, setCommentType] = useState('info') //info, success, fail
 
+    //sets the picture as a profile picture
     const setAvatarHandler = (url) => {
         axios({
             method: "POST",
-            url: `http://localhost:8080/api/account/update/${account}`,
+            url: `/api/account/update/${account}`,
             data: {
                 account:{
                     avatar:url
@@ -27,6 +28,23 @@ const Image = ({url, caption, token, account, refresh}) => {
             refresh()
         }).catch(err=> console.log(err))
     }
+    //deletes the picture from database
+    const deleteImage = (imageId) => {
+        axios({
+            method: "DELETE",
+            url: `/api/account/image-delete/${imageId}`,
+            headers: {
+                'auth-token': token
+            }
+        }).then(res => {
+            console.log(res)
+            commentHandler('Image deleted successfully', 'success')
+            refresh()
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
     const commentHandler = (commentTxt, style="info") => {
         setComment(commentTxt)
         setCommentType(style)
@@ -40,16 +58,26 @@ const Image = ({url, caption, token, account, refresh}) => {
     }
     return(
         <div className={"card " + styles.imageCard} >
-            <img className={"card-img-bottom " + styles.cardImg} src={url} alt="Card image cap" />
-            <p className={"card-text "+styles.caption }>"{caption}"</p>
+            <img className={"card-img-top " + styles.cardImg} src={url} alt="Card image cap" />
+                <p className={"card-text "+styles.caption }>"{caption}"</p>
             <div className="card-body text-center d-flex flex-column jusify-content-betwen align-items-center">
                 
                 <div className="row d-flex flex-row justify-content-evenly">
                     <div className="col-12 d-flex flex-row justify-content-center">
-                        <button onMouseOut={()=> commentHandler("")} onMouseOver={()=> commentHandler("Set as avatar")} onClick={()=> setAvatarHandler(url)} className={"btn btn-link mx-4 "+styles.iconBtn}>
+                        <button 
+                            onMouseOut={()=> commentHandler("")} 
+                            onMouseOver={()=> commentHandler("Set as avatar")} 
+                            onClick={()=> setAvatarHandler(url)} 
+                            className={"btn btn-link mx-4 "+styles.iconBtn}
+                        >
                             <img src={avatarIcon} alt="Add avatar icon" />
                         </button>
-                        <button onMouseOut={()=> commentHandler("")} onMouseOver={()=> commentHandler("Remove image", "fail")}  className={"btn btn-link mx-4 "+styles.delBtn}>
+                        <button 
+                            onMouseOut={()=> commentHandler("")} 
+                            onMouseOver={()=> commentHandler("Remove image", "fail")}
+                            onClick={() => deleteImage(imageId)} 
+                            className={"btn btn-link mx-4 "+styles.delBtn}
+                        >
                             <img src={deleteIcon} alt="Delete image icon" />
                         </button>
                     </div>

@@ -47,7 +47,10 @@ const EditForm = (props) => {
             description: desc,
             interestedIn: interest,
             matchAgeMax: maxAge,
-            matchAgeMin: minAge
+            matchAgeMin: minAge,
+            country: country,
+            region: region, 
+            city: city
         }
         try {
             const res = await axios({
@@ -72,11 +75,11 @@ const EditForm = (props) => {
     if(!props.toEdit){
         return( 
         <form className={styles.accountForm}> 
-            <div className={"form-group text-center "+styles.inputGroup}>
+            <div className={"form-group "+styles.inputGroup}>
                 <label className={styles.formLabel}>Nickname:</label>
                 <input readOnly className={"form-control "+styles.formInputB} type="text" value={nick} />
             </div>
-            <div className={"form-group text-center "+styles.inputGroup}>
+            <div className={"form-group "+styles.inputGroup}>
                 <label className={styles.formLabel}>Describe yourself:</label>
                 <textarea readOnly className={"form-contol "+ styles.textAreaB} rows="3" value={desc} >
                 

@@ -20,11 +20,11 @@
     background:transparent;
     border: none !important;
     color: #460c0c !important;
-    font-weight: 700;
+    font-weight: 500;
 }
 .formLabel{
-    font-size: 20px;
-    color: darkslategray;
+    font-size: 16px;
+    color: black;
     border-bottom: 1px solid darkslategray;
     
 }
@@ -44,13 +44,18 @@
     color: #470000 !important;
     border: none !important;
     border-bottom: 1px solid transparent !important;
-    font-size: 23px !important;
-    font-weight: 700;
+    font-size: 14px !important;
+    font-weight: 500;
+    box-shadow: none !important;
+    cursor: default;
  
 }
 .inputGroup{
     width: 100%;
-    background: whitesmoke;
+    background: #fae1df;
+    border-radius: 10px;
+    padding: 5px;
+    overflow: hidden;
 }
 .subBtn{
     border-radius: 0px !important;

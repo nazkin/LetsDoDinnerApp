@@ -25,17 +25,17 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 [x] restyle the profile page
 [x] Change avatar functionality
 [] Make sure duplicate emails arent used for separate accounts
-[] Make sure noone under 18 is able to register
+[x] Make sure noone under 18 is able to register
 [] Ability to enter a chat from users profile if a match exists
 [] Ability to view users profile from the connections place
 [] Restyle the invitations section
 [] Remove a connection
 [] Delete image functionality
-[] Implement changes in search options and search by location
-[] Fix min and max age!
-[] Fix everyone wanting everyone
+[x] Implement changes in search options and search by location
+[x] Fix min and max age!
+[x] Fix everyone wanting everyone
 [] Allow to crop images
-[] Shrinking page size overloads text
+[x] Shrinking page size overloads text
 [] Add paging to search
 [] Fix updating of location information
 [] Add update to the photos

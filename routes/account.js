@@ -3,6 +3,7 @@ const jwtVerify = require('../middleware/jwtVerify')
 const User = require('../models/User')
 const Account = require('../models/Account')
 const Image = require('../models/Image')
+const Chat = require('../models/Chat')
 // const { ascending, descending, calcBirthday } = require('../zhelpers')
 //Helper function
 
@@ -99,19 +100,41 @@ router.get('/info', jwtVerify, async (req, res)=> {
 //Retrieving the account of a user whose account is currently being viewed 
 router.get('/info/:id', jwtVerify, async (req, res)=> {
     try {
-        const account = await Account.findOne({_id: req.params.id}).populate('images')
+        const account = await Account.findOne({_id: req.params.id}).populate('images').populate('chats')
         const usersAccount = await Account.findOne({userId: req.user.userId})
-        let hasConnection = false
-        if(account.invitations.includes(usersAccount._id) || account.connections.includes(usersAccount._id)) {
-            hasConnection = true
+        let hasConnection = false //has a connection been established tracker 
+        let invitePending = false //has an invitation been sent tracker
+        let gotInvited = "" //who sent the invitation 
+        let chatId = null //if a chat exist this chatId will be sent over
+        
+        //did either of the users send an invite to one another
+        if(account.invitations.includes(usersAccount._id)) {    //User invited the account he is viewing
+            invitePending = true
+            gotInvited = 'no'
+        } else if(usersAccount.invitations.includes(account._id)){ //Account being viewed invited current user
+            invitePending = true
+            gotInvited = 'yes'
         }
+        //has a connection been established between two users
+        else if(account.connections.includes(usersAccount._id) || usersAccount.connections.includes(account._id)){
+            hasConnection = true
+            account.chats.forEach(chat => {
+                if(chat.users.includes(usersAccount._id) && chat.users.includes(account._id)){
+                    chatId = chat._id
+                }
+            })
+        } 
         res.json({
             message: 'Account retrieved successfully',
             account: account,
             hasConnect: hasConnection,
+            hasInvite: invitePending,
+            gotInvited: gotInvited,
+            chat: chatId
         })
 
     } catch (error) {
+        console.log(error)
         res.json({
             message: "error retrieving users account: ",
             err: error 
@@ -142,7 +165,7 @@ router.get('/recent-users', jwtVerify, async (req, res) => {
     try{
         const recentAccounts = []
         const usersAccount = await Account.findOne({userId: req.user.userId})
-        let accounts = usersAccount.interestedIn === "everyone" ? await Account.find({}).populate('userId') : await Account.find({gender: usersAccount.interestedIn}).populate('userId')
+        let accounts = (usersAccount.interestedIn === "everyone" || !usersAccount.interestedIn) ? await Account.find({}).populate('userId') : await Account.find({gender: usersAccount.interestedIn}).populate('userId')
 
         accounts.forEach((account, i) => {
             //remove the user from the list
@@ -288,6 +311,70 @@ router.post('/filtered-users', jwtVerify, async (req, res) => {
 
 })
 
+//Checking if the user has any unread messages or new invitations
+router.get('/new-com', jwtVerify, async (req, res) => {
+    const usersAccount = await Account.findOne({ userId: req.user.userId }).populate('chats').populate('invitations')
+    let invitations = false
+    let unansweredMsg = false
+    //Check if the user has any unanswered invitations
+    if(usersAccount.invitations.length > 0){
+        invitations = true
+    }
+    try {
+        const chats = []
+        for(let i = 0; i < usersAccount.chats.length; i++) {
+            const chat = await Chat.findById(usersAccount.chats[i]._id).populate('messages')
+            if(chat.messages.length > 0){ //Were there any messages sent in this chat
+                let lastMessage = chat.messages[chat.messages.length - 1]
+                if(lastMessage.sentBy.toString() !== req.user.userId.toString()) { //Who sent the last message
+                    unansweredMsg = true
+                    break
+                } 
+            }
+           
+        }
+    
+        res.json({
+            message: 'Chats fetched successfully',
+            invites: invitations,
+            noAnswer: unansweredMsg,
+            account: usersAccount
+        }) 
+    } catch (error) {
+        console.log(error)
+    }
+    
+
+    //Check if the user has any unanswered messages
+ 
+
+})
+//Delete image route
+router.delete('/image-delete/:imageId', jwtVerify, async(req, res) => {
+    try {
+        const usersAccount = await Account.findOne({ userId: req.user.userId })
+        const image = await Image.findById(req.params.imageId)
+        for(let i = 0; i < usersAccount.images.length; i++){
+            if(usersAccount.images[i].toString() === req.params.imageId.toString()){
+                usersAccount.images.splice(i, 1)
+                break
+            }
+        }
+        await usersAccount.save()
+        await Image.remove(image)
+        res.json({
+            message: "Image successfully deleted",
+
+        })
+    } catch (error) {
+        res.json({
+            message: "ERROR: Could not delete image",
+            err: error
+        })
+    }
+
+
+})
 
 
 module.exports = router

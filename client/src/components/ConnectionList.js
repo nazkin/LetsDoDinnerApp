@@ -3,7 +3,7 @@ import styles from './styles/core/compIndex.module.scss'
 import {useHistory} from 'react-router-dom'
 import connectIcon from '../images/connection.png'
 
-const ConnectionList = ({connects, chats}) => {
+const ConnectionList = ({connects, chats, viewAccount}) => {
     let history = useHistory();
 
     const goToChatHandler = (id) => {
@@ -11,9 +11,9 @@ const ConnectionList = ({connects, chats}) => {
     }
 
     let connectList = (
-            <div className="row d-flex justify-content-evenly align-items-center py-5 px-5">
+            <div className={"row d-flex justify-content-evenly align-items-center py-1 px-1 " +styles.placeholderBox}>
                 <img src={connectIcon} alt="no invitations placeholder icon" className={styles.placeholderIcon}/>
-                <h1>No connections. Start searching</h1>
+                <h1>No connections available</h1>
             </div>
     );
     if(connects && connects.length > 0){
@@ -26,8 +26,8 @@ const ConnectionList = ({connects, chats}) => {
             })
             return(
                 <div key={hasChat} className={styles.connectImgDiv}>
-                    <img src={con.avatar} className={styles.connectAvatar} alt="avatar of connection" />
-                    {hasChat ? <button onClick={()=> goToChatHandler(hasChat)} className="btn btn-link">Message</button> : null}       
+                    <img onClick={()=> goToChatHandler(hasChat)} src={con.avatar} className={styles.connectAvatar} alt="avatar of connection" />
+                    <p>{con.nickname}</p>
                 </div>
                  
                  )

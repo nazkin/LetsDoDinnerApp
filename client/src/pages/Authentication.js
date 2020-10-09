@@ -9,7 +9,7 @@ import AuthForm from '../components/Forms/AuthForm';
 const Authentication = (props)=> {
     let history = useHistory();
 
-    const [hasAccount, setHasAccount] = useState(false);//controlling sign-up and log-in 
+    const [hasAccount, setHasAccount] = useState(true);//controlling sign-up and log-in 
     const [fullName, setFullName] = useState("");//**input handlers 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -105,7 +105,7 @@ const Authentication = (props)=> {
                     {errorText}
                     <div className={styles.switchAuth}>
                         <p>{hasAccount? "Do not have an account with us?" : "Already have an account with us?" }</p>
-                        <button onClick={authTypeHandler} className={"btn btn-link btn-lg" + styles.linkBtn}>{hasAccount ? 'Sign-Up' : 'Log-In'}</button>
+                        <div onClick={authTypeHandler} className={styles.linkBtn}>{hasAccount ? 'Sign-Up' : 'Log-In'}</div>
                     </div>
 
 

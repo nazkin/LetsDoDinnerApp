@@ -83,7 +83,8 @@ router.get('/chatdata/:id', jwtVerify, async (req, res)=> {
         const chat = await Chat.findById(req.params.id).populate('users').populate('messages')
         res.json({
             message: "Chat information retrieved successfully",
-            info: chat
+            info: chat,
+            userId: req.user.userId
         })
     } catch (error) {
         res.json({

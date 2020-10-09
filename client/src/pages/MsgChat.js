@@ -11,6 +11,7 @@ const Messages = () => {
     const [loading, setLoading] = useState(false)
     const [chatData, setChatData] = useState(null)
     const [sent, setSent] = useState(false)
+    const [userId, setUserId] = useState("")
     const token = sessionStorage.getItem('auth-token');
 
     let {id} = useParams();
@@ -27,7 +28,8 @@ const Messages = () => {
         }).then(res => {
             
             console.log(res)
-            setChatData(res.data.info);
+            setChatData(res.data.info)
+            setUserId(res.data.userId)
         }).catch(err => {
             
             console.log(err)
@@ -60,8 +62,8 @@ const Messages = () => {
             <div className={"row p-5"}>
                 <Title title={title} />
             </div>
-            <Display chatData={chatData} />
-            <MessageInput sentUpdate={messageSentUpdate} chatId={chatId} token={token} />
+            <Display currentUser={userId} chatData={chatData} />
+            <MessageInput  sentUpdate={messageSentUpdate} chatId={chatId} token={token} />
         </Template>
     )
 }

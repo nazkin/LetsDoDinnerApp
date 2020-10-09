@@ -1,5 +1,4 @@
 
-
 .hoverable {
   display: inline-block;
   backface-visibility: hidden;
@@ -26,8 +25,16 @@
   background: -webkit-radial-gradient(center, ellipse, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 80%);
   background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 80%);
   /* W3C */
-  transition-duration: 0.3s;
+  transition-duration: 0.5s;
   transition-property: transform, opacity;
+}
+.hoverableActive{
+  transform: translateY(-5px);
+  color: linen;
+}
+.hoverableActive:before{
+  opacity: 1;
+  transform: translateY(-5px);
 }
 
 .hoverable:hover, .hoverable:active, .hoverable:focus {
@@ -81,6 +88,7 @@ nav {
   justify-content: center!important;
   font-weight: 600 !important;
   text-align: center !important;
+  margin: 0;
 }
 
 .navElement{

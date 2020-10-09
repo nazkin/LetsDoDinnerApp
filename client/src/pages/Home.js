@@ -44,12 +44,11 @@ const Home = (props)=> {
 
     return(
         <Template>
-            <div className={"row m-5 p-5 "+ styles.heroContainer}>
+            <div className={"row m-5 p-1 "+ styles.heroContainer}>
                <div className={"col-md-7 text-center "+ styles.heroText}>
                     <h1>A <span>simple</span> app for those who <span>simply</span> want to find a match</h1>
-                    <h3>Start matching now</h3>
                </div>
-               <div className="col-md-5">
+               <div className="col-md-3 text-center">
                    <img className={styles.loveImg} src={loveBirdsImg} alt="lovebirds home image" />
                </div>
             </div>

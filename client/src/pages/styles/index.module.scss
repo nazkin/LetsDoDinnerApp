@@ -33,15 +33,28 @@
 
 .switchAuth{
     margin-top: 4rem;
+    margin-bottom: 1rem;
     color: white;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(61, 61, 61, 0.4);
     padding: 1rem;
 }
 .authTitle{
     color: white;
     margin-bottom: 5rem;
 }
+.linkBtn{
+    color: darkcyan ;
+    background-color: transparent ;
+    font-size: 20px ;
+    border: none;
+    cursor: pointer;
+}
+.linkBtn:hover{
+   color: darkcyan;
+   opacity: 0.6;
+}
+
 //AccountStart
 .startContainer{
     min-height: 100vh;
@@ -59,7 +72,8 @@
 
 //Home
 .heroContainer{
-    background: linear-gradient(180deg, rgba(201,100,100,1) 0%, rgba(215,149,149,1) 27%, rgba(241,241,241,1) 100%);
+    background: linear-gradient(180deg, rgb(44, 29, 29) 0%, rgb(34, 21, 21) 27%, rgb(170, 168, 168) 100%);
+    box-shadow: 0px 10px 10px 5px #868484;
 }
 .heroText{
     display: flex;
@@ -68,37 +82,41 @@
 
     h1 {
         font-size: 56px;
-        color: darkred;
+        color: #f05151;
         font-weight: 700;
         
         span {
             color: white;
             font-weight: 400;
             font-style: italic;
-            border-bottom: 2px solid darkred;
+            border-bottom: 2px solid gold;
             text-transform: uppercase;
         }
     }
-
-    h3 {
-        font-size: 30px;
-        color:whitesmoke;
-        font-weight: 500;
-        padding: 5px;
-
-        max-width: 70%;
-        background: rgba(215,149,149,1);
-    }
 }
+
 .loveImg{
     width: 100%;
     height: auto;
 }
 
-
+@media (max-width: 600px) {
+    .heroText {
+      justify-content: center;
+      align-items: center;
+      h1 {
+          font-size: 30px;
+          font-weight: 400;
+      }
+    }
+    .loveImg {
+        width: 75%;
+    }
+}
 //Profile
 .updateRow{
     padding: 0.11rem 0.11rem;
+    background: lightpink;
  
     
 }
@@ -115,6 +133,7 @@
     background: #fff6f6;
 
 }
+
 .images{
     display: flex;
     flex-direction: row;
@@ -124,6 +143,11 @@
     width: 100%;
     background: #fff6f6;
     min-height: 40rem;
+}
+@media (max-width: 960px) {
+  .images {
+      justify-content: center;
+  }
 }
 .uploadModal{
     position: absolute;
@@ -149,7 +173,7 @@
 
 .toggleBtn{
     width: 100%;
-    padding: 10px;
+    padding: 20px 10px;
     button{
         width: 60px;
         height: 60px;
@@ -171,15 +195,18 @@
     background-color: #faf6f6;
 }
 .descCol{
-    
+
     
 }
 .descriptor{
     width: 100%;
     padding: 1em;
+    background: lightpink;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
    
     h4{
-        font-size: 30px;
+        font-size: 22px;
         color: darkslategray;
         font-weight: 200;
         padding: 10px;
@@ -193,6 +220,26 @@
         padding: 10px;
         text-align: center;
         width: 100%;
+    }
+}
+.connectionStatus{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: '4rem';
+    background: #ffd3d3
+}
+.eachStat{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: '100%';
+    h5 {
+        color: darkslategray;
+        padding: 5px;
+        font-weight: 500;
     }
 }
 
@@ -228,4 +275,78 @@
     width: 100%;
     padding: 10px; 
     text-align: center;
+}
+
+//Connections,js
+
+.modalContent{
+    width: 100%;
+    text-align: center;
+    background-color: "silver";
+    h1 {
+        text-transform: uppercase;
+        color: black;
+       
+        width: 100%;
+        padding: 5px;
+    }
+    h4{
+        color: darkred;
+        width: 100%;
+        padding: 5px;
+    }
+}
+.modalItem{
+    background: slategrey !important;
+    color: whitesmoke !important;
+    text-align: center !important;
+    letter-spacing: 1.5px !important;
+    margin: 5px !important;
+}
+.modalItem:hover {
+    opacity: 0.8;
+}
+.modalItemA{
+    background: steelblue !important;
+    color: lightblue !important;
+    text-align: right !important;
+    letter-spacing: 1.5px !important;
+    margin: 5px !important;
+}
+.modalItemA:hover {
+    opacity: 0.8;
+}
+.modalItemB{
+    background: #bc4e4e !important;
+    color: #fababa !important;
+    text-align: right !important;
+    letter-spacing: 1.5px !important;
+    margin: 5px !important;
+}
+.modalItemB:hover {
+    opacity: 0.8;
+}
+.connectionListBox{
+    // background-image: url('../../images/paris.jpg');
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    // background-position: center;
+    min-height: 25em;
+    box-shadow: 1px 1px 2px 2px grey;
+    padding: 1rem 1rem;
+    margin-bottom: 2rem;
+    margin-top: 3rem;
+    
+  
+}
+.inviteListBox {
+    // background-image: url('../../images/paris.jpg');
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    // background-position: top;
+    min-height: 25em;
+    box-shadow: 1px 1px 2px 2px grey;
+    padding: 1rem 1rem;
+    margin-bottom: 2rem;
+    margin-top: 3rem;
 }

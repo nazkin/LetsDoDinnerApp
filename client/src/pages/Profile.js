@@ -85,7 +85,7 @@ const Profile = (props) => {
 
     if(accountInfo){
         images = accountInfo.images.map(image => {
-            return <ImageCard refresh={pageRefreshHandler} account={accountInfo._id} token={token} key={image._id} url={image.downloadUrl} caption={image.caption} /> 
+            return <ImageCard imageId={image._id} refresh={pageRefreshHandler} account={accountInfo._id} token={token} key={image._id} url={image.downloadUrl} caption={image.caption} /> 
         });
     }
     uploadSection = (<div className={"card " + styles.uploadSection}>
@@ -116,9 +116,9 @@ const Profile = (props) => {
                 {uploadSection}
                 </Modal>
 
-            <div className={"row py-5 "+ styles.updateRow}>
-                <div className={"col-lg-5 "+styles.formCol}>
-                    <Title title="User Information"/>
+            <div className={"row "+ styles.updateRow}>
+                <div className={"col-lg-5 p-4 my-4"+styles.formCol}>
+                    <Title title="User Info"/>
                     <div className={"row my-2 d-flex justify-content-end "+styles.toggleBtn}>
                         <p>{comment === "edit" && !isEditForm ? comment : ""}</p>
                      <button onMouseOut={()=> setComment('')} onMouseOver={() => setComment('edit')} onClick={toggleEdit} className={"btn btn-danger btn-lg "}>
@@ -154,11 +154,11 @@ const Profile = (props) => {
                         
                    }
                 </div>
-                <div className={"col-lg-7 p-0 "+ styles.imgColumn }>
+                <div className={"col-lg-7 p-4 "+ styles.imgColumn }>
                     <Title title="User Images"/>   
-                   <div className={"row my-2 d-flex justify-content-end "+styles.toggleBtn}>
+                   <div className={"row my-2 d-flex flex-row justify-content-end "+styles.toggleBtn}>
                    <p>{comment === "add" && !isUpload ? comment : ""}</p>
-                     <button onMouseOut={()=> setComment('')} onMouseOver={() => setComment('add')} onClick={toggleUpload} className={"btn btn-danger btn-lg"}>
+                     <button onMouseOut={()=> setComment('')} onMouseOver={() => setComment('add')} onClick={toggleUpload} className={"btn btn-danger btn-lg "}>
                          <img src={addIcon} alt="add image icon" style={{background: "white"}} />
                      </button>
                    </div>

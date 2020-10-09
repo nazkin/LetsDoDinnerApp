@@ -1,27 +1,24 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Template from '../components/Template'
 import styles from './styles/index.module.scss'
-import {useParams} from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import UsersImages from '../components/UI/ImageRow'
 import Title from '../components/UI/Title'
 import axios from 'axios'
+import yesImg from '../images/yes.png'
+import noImg from '../images/no.png'
 import { PushSpinner } from "react-spinners-kit";
 
-// const calcBirthday = (dateString) => {
-//     var today = new Date();
-//     var birthDate = new Date(dateString);
-//     var age = today.getFullYear() - birthDate.getFullYear();
-//     var m = today.getMonth() - birthDate.getMonth();
-//     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-//         age--;
-//     }
-//     return age;
-// }
 
 const ProfileDisplay = () =>{
+    let history = useHistory()
     const [account, setAccount] = useState(null)
     const [loading, setLoading] = useState(false)
-    const [hasConnection, setHasConnection] = useState(false) //Checks if the user already sent an invite or established a connection with the user
+    const [hasConnection, setHasConnection] = useState(false) //Checks if connection has been established between users
+    const [hasInvite, setHasInvite] = useState(false) //Check if either users sent each other an invite
+    const [gotInvited, setGotInvited] = useState(false) //Checks who sent the invite
+    const [refresh, setRefresh] = useState(false)
+    const [ifChat, setIfChat] = useState("") // if a chat exists between users this will be the id
 
     let { id } = useParams();
     const token = sessionStorage.getItem('auth-token');
@@ -41,11 +38,14 @@ const ProfileDisplay = () =>{
            console.log(res);
            setAccount(res.data.account);
            setHasConnection(res.data.hasConnect);
+           setHasInvite(res.data.hasInvite);
+           setGotInvited(res.data.gotInvited);
+           setIfChat(res.data.chat)
        }).catch(err=> {
            setLoading(false);
            console.log(err);
        })
-    }, [setAccount]);
+    }, [setAccount,refresh]);
 
     //Send invite handler
 
@@ -53,17 +53,24 @@ const ProfileDisplay = () =>{
         try {
             const result = await axios({
                 method: "POST", 
-                url: `http://localhost:8080/api/send/invitation/${accountId}`,
+                url: `/api/send/invitation/${accountId}`,
                 headers:{
                     'auth-token': token
                 } 
             });
             console.log(result)
-            setHasConnection(true)
+           setRefresh(!refresh)
         } catch (error) {
             console.log(error)
         }
         return true;
+    }
+    let inviteMsg = 'Invitation Sent';
+   
+    if(gotInvited === 'no'){
+        inviteMsg = <h5 >Invitation Sent</h5>
+    }else if(gotInvited === 'yes'){
+        inviteMsg = <h5 >Invitation Received</h5>
     }
 
     //When data is being retrieved dont load anything
@@ -80,9 +87,32 @@ const ProfileDisplay = () =>{
     return(
         <Template>
             <div className="container-fluid">
-                <div className={"row p-3 " +styles.pdMain}>
-                    <div className={"col-lg-5 "+ styles.descCol}>
+                <div className={"row " +styles.pdMain}>
+                    <div className={"col-lg-5 py-5 px-3  "+ styles.descCol}>
                         <Title title={account.nickname} />
+                        <div className={"row py-2 "+ styles.connectionStatus}>
+                            <div className={styles.eachStat}>
+                                {inviteMsg}
+                                {hasInvite || hasConnection ? <img src={yesImg} alt="invitation status between two users" /> : <img src={noImg} alt="invitation status between two users" /> }
+                                
+                            </div>
+                            <div className={styles.eachStat}>
+                                <h5>Current Connection</h5>
+                                {hasConnection ? <img src={yesImg} alt="Connection status between two users" /> : <img src={noImg} alt="Connection status between two users" /> }
+                            </div>
+                        </div>
+                        <div className={"row py-2 d-flex flex-row justify-content-center "} style={{background: "steelblue"}}>
+                            <div>
+                                {hasInvite && !hasConnection && gotInvited === 'yes' ? <button onClick={() => history.push("/connections")} className="btn btn-link btn-light">View Invite</button> : null}
+                                {hasInvite && !hasConnection && gotInvited === 'no' ? <p style={{color: "linen"}}>Waiting on {account.nickname} to accept your invitation</p> : null}
+                            </div>
+                            <div>
+                                {!hasInvite && !hasConnection ? <button onClick={inviteConnectionHandler} className="btn btn-link btn-light">Invite Connection</button> : null}
+                            </div>
+                            <div>
+                                {hasConnection ? <button onClick={() => history.push(`/message/${ifChat}`)} className="btn btn-light btn-sm">Message</button> : null}
+                            </div>
+                        </div>
                         <div className={""+styles.descriptor}>
                             <h4>Description</h4>
                             <p>{account.description}</p>
@@ -99,7 +129,6 @@ const ProfileDisplay = () =>{
                             <h4>Age</h4>
                             <p>{account.age}</p>
                         </div>
-                        {!hasConnection ? <button onClick={inviteConnectionHandler} className="btn btn-danger mx-5 my-5">Invite Connection</button> : null}
                     </div>
                     <div className="col-lg-7">
                         <UsersImages images={account.images}/>
