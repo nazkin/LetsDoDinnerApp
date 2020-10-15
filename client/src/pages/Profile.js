@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import axios from 'axios'
 import EditAccountForm from '../components/Forms/AccountEditForm'
 import styles from './styles/index.module.scss'
@@ -10,6 +10,8 @@ import { PushSpinner } from "react-spinners-kit";
 import addIcon from '../images/add.png'
 import editIcon from '../images/edit.png'
 import Modal from "react-modal"
+import star from '../images/star.png'
+import { OverlayTrigger, Tooltip} from 'react-bootstrap'
 
 Modal.defaultStyles.overlay.backgroundColor = 'rgba(0, 0, 0, 0.7)';
 
@@ -30,12 +32,13 @@ const customStyles = {
 
 
 const Profile = (props) => {
+    const t1 = useRef()
+    const t2 = useRef()
     const [accountInfo, setAccountInfo] = useState(null);
     const [loading, setLoading] = useState(false);
     const [refresh, setRefresh] = useState(false);
     const [isUpload, setIsUpload] = useState(false);
     const [isEditForm, setIsEditForm] = useState(false);
-    const [comment, setComment] = useState("");
     const [isOpen, setIsOpen] = useState(false); //modal state
 
     const token = sessionStorage.getItem('auth-token');
@@ -103,6 +106,17 @@ const Profile = (props) => {
            </Template>
        ) 
     }
+    let profileImage = null;
+    if(accountInfo.avatar){
+        profileImage = (
+            <div className={styles.avatarDiv} style={{backgroundImage:`url(${accountInfo.avatar})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', objectFit: 'contain'}}>
+                <section>
+                    <img src={star} alt="image signifying profile picture" />
+                    <p>Profile</p>
+                </section>
+            </div> 
+        )
+    }
     return(
         <Template>
            
@@ -119,11 +133,15 @@ const Profile = (props) => {
             <div className={"row "+ styles.updateRow}>
                 <div className={"col-lg-5 p-4 my-4"+styles.formCol}>
                     <Title title="User Info"/>
-                    <div className={"row my-2 d-flex justify-content-end "+styles.toggleBtn}>
-                        <p>{comment === "edit" && !isEditForm ? comment : ""}</p>
-                     <button onMouseOut={()=> setComment('')} onMouseOver={() => setComment('edit')} onClick={toggleEdit} className={"btn btn-danger btn-lg "}>
-                        <img src={editIcon} alt="edit info icon" style={{background: "white"}} />
-                     </button>
+                    <div className={"row my-2 d-flex justify-content-between "+styles.toggleBtn}>
+                        {/* <p>{comment === "edit" && !isEditForm ? comment : ""}</p> */}
+                        {profileImage}
+                        <OverlayTrigger overlay={<Tooltip  id="tooltip-disabled">Edit Info</Tooltip>}>
+                            <button onClick={toggleEdit} className={"btn btn-danger btn-lg "}>
+                                <img src={editIcon} alt="edit info icon" style={{background: "white"}} />
+                            </button>
+                        </OverlayTrigger>
+
                    </div>
                     {/* display the form */}
                    {
@@ -155,19 +173,23 @@ const Profile = (props) => {
                    }
                 </div>
                 <div className={"col-lg-7 p-4 "+ styles.imgColumn }>
-                    <Title title="User Images"/>   
-                   <div className={"row my-2 d-flex flex-row justify-content-end "+styles.toggleBtn}>
-                   <p>{comment === "add" && !isUpload ? comment : ""}</p>
-                     <button onMouseOut={()=> setComment('')} onMouseOver={() => setComment('add')} onClick={toggleUpload} className={"btn btn-danger btn-lg "}>
-                         <img src={addIcon} alt="add image icon" style={{background: "white"}} />
-                     </button>
-                   </div>
-                    <div className={"row "+styles.uploadSection}>
-                       
-                    </div>
+                  <Title title="User Images"/>   
+                  <div className={"row my-2 d-flex flex-row justify-content-end "+styles.toggleBtn}>
+                   {/* <p>{comment === "add" && !isUpload ? comment : ""}</p> */}
+                   
+                    <OverlayTrigger overlay={<Tooltip  id="tooltip-disabled">Add New Photo</Tooltip>}>
+                        <button onClick={toggleUpload} className={"btn btn-danger btn-lg "}>
+                            <img src={addIcon} alt="add image icon" style={{background: "snow"}} />
+                        </button>
+                    </OverlayTrigger>
+
+                  </div>
                                         {/* display the images */}
                     <div className={"row " +styles.images}>
+
                         {images}
+
+                        
                     </div>
                 </div>
             </div>        

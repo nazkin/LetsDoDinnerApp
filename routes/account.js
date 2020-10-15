@@ -192,8 +192,24 @@ router.get('/recent-users', jwtVerify, async (req, res) => {
         })
     }
 })
+//Updating Images
+router.post('/image/update-text/:imgId', jwtVerify, async (req, res) => { 
+    try {
+        await Image.findByIdAndUpdate(req.params.imgId, {caption: req.body.captionUpdate})
+        res.json({
+            message: "Image caption updated"
+        })
+    } catch (error) {
+        console.log(error)
+        res.json({
+            message: "Error: Fail to update image caption"
+        })
+    }
+    
+})
 
 
+//Filtering users
 router.post('/filtered-users', jwtVerify, async (req, res) => {
     const filteredAccounts = []
     let accounts

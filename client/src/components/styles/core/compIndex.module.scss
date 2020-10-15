@@ -285,15 +285,10 @@ header[role="banner"] {
     p {
         display: none;
     }
-    button {
-        display:none;
-    }
+
 }
 
 .imageCard:hover{
-    button {
-        display:block;
-    }
 
     p {
         display: block;
@@ -302,8 +297,8 @@ header[role="banner"] {
 @media (max-width: 880px) {
   .imageCard {
       width: 15rem;
-      margin: 0.1rem;
-      height: 18rem;
+      margin: 0.1rem 0.3rem;
+      min-height: 18rem;
       justify-self: center;
   }
   .cardImg {
@@ -331,6 +326,18 @@ header[role="banner"] {
     height: 65%;
     object-fit: cover;
 }
+.menuBtn{
+    height:40px!important;
+    width: 40px!important;
+    background: linen!important;
+    cursor: pointer;
+    opacity: 0.8;
+ 
+}
+.menuBtn:hover {
+    opacity: 0.54;
+    background: lightgray;
+}
 .iconBtn{
     height:40px!important;
     width: 40px!important;
@@ -350,6 +357,17 @@ header[role="banner"] {
 }
 .delBtn:hover{
     opacity: 0.8;
+}
+.editBtn{
+    height:40px!important;
+    width: 40px!important;
+    padding: 10px !important;
+    background: rgb(141, 133, 214)!important;
+    border-radius: 50% !important;
+}
+.editBtn:hover{
+    opacity: 0.8;
+
 }
 .iconComment{
     width: 100%;

@@ -8,7 +8,8 @@ import Invitations from '../components/Invitations'
 import ConnectList from '../components/ConnectionList'
 import { PushSpinner } from "react-spinners-kit";
 import Modal from "react-modal"
-import {ListGroup, Item } from 'react-bootstrap'
+import manageMenu from '../images/menu.png'
+import {ListGroup, Item, OverlayTrigger, Tooltip } from 'react-bootstrap'
 
 Modal.defaultStyles.overlay.backgroundColor = 'rgba(0, 0, 0, 0.7)';
 const customStyles = {
@@ -72,7 +73,7 @@ const Connections = () => {
         setRefresh(!refresh)
     }
 
-    const viewInviteAccountHandler = (id) => {
+    const viewUserAccountHandler = (id) => {
         history.push(`/account/${id}`)
     }
 
@@ -106,6 +107,20 @@ const Connections = () => {
         setOpenConnect(false)
     }
 
+    const deleteConnectionHandler = (id) => {
+        axios({
+            method: "DELETE",
+            url: `/api/send/connection/remove/${id}`,
+            headers: {
+                'auth-token': token
+            }
+        }).then(res => {
+            refreshHandler()
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
     const viewAccountHandler = (accountId) => { //type = invite or type = connect
         setLoading(true)
         axios({
@@ -126,6 +141,31 @@ const Connections = () => {
         })
     }
 
+    let managedConnections;
+    if(info.connections){
+        managedConnections = info.connections.map(connection => {
+            return(
+                <div key={connection._id} className={styles.managedConnections}>
+                    <section>
+                        <img className={styles.modalImg} src={connection.avatar} alt="connections avatar" style={{width: '80px', height: '80px', objectFit: 'cover'}}/>
+                    </section>
+                    <section>
+                        <p><span>Name:</span> {connection.nickname}</p>
+                        <p><span>Age:</span> {connection.age}</p>
+                        <p><span>From:</span> {connection.city} {connection.country}</p>
+                    </section>
+                    <section>
+                        <button onClick={() => deleteConnectionHandler(connection._id)} className={"btn btn-link "+ styles.removeBtn}>
+                            Remove
+                        </button>
+                        <button onClick={() => viewUserAccountHandler(connection._id)} className={"btn btn-link"}>
+                            View Account
+                        </button>
+                    </section>
+                </div>
+            )
+        })
+    }
 
     if(loading || !info){
         return(
@@ -144,6 +184,7 @@ const Connections = () => {
               onRequestClose={closeModal}
               style={customStyles}
               contentLabel="Manage Invitation"
+              ariaHideApp={false}
             >
                 <div className={styles.modalContent}>
                     <div className={"row "+styles.modalImgRow}>
@@ -153,26 +194,41 @@ const Connections = () => {
                     <h4>{modalAccount.city}, {modalAccount.country}</h4>
                 </div>
                 <ListGroup style={{width: '100%'}}>
-                    <ListGroup.Item className={styles.modalItem} onClick={()=> viewInviteAccountHandler(modalAccount._id)} action variant="primary">View Profile</ListGroup.Item>
+                    <ListGroup.Item className={styles.modalItem} onClick={()=> viewUserAccountHandler(modalAccount._id)} action variant="primary">View Profile</ListGroup.Item>
                     <ListGroup.Item className={styles.modalItemA} onClick={()=> acceptInvitationHandler(modalAccount._id)} action variant="success">Accept</ListGroup.Item>
                     <ListGroup.Item className={styles.modalItemB}  onClick={()=> declineInvitationHandler(modalAccount._id)} action variant="danger">Decline</ListGroup.Item>
                 </ListGroup>
             </Modal>
-            {/* <Modal
+            <Modal
                 isOpen={openConnect}
                 onRequestClose={closeConnectModal}
                 style={customStyles}
                 contentLabel="Manage Connection"
+                ariaHideApp={false}
             >
-                <h1>Here goes cheese</h1>
-            </Modal> */}
+                <React.Fragment>
+                    <button className={"btn btn-link "+styles.connectModalX} onClick={closeConnectModal}>Close</button>
+                    <div style={{width: '99%', background: 'whitesmoke', minHeight: '80%',margin: '50px 0px'}}>
+                        {managedConnections}
+                    </div>
+                </React.Fragment>
+                
+            </Modal>
             <div className={"row "+styles.inviteListBox}>
                 <Title title="Likes" />
                 <Invitations viewAccount={viewAccountHandler} type="invitation" likes={info ? info.invitations: null} token={token} refresh={refreshHandler}/>
             </div>
             <div className={"row "+ styles.connectionListBox}>
                 <Title title="Connections" />
-                <ConnectList viewAccount={viewAccountHandler}  connects={info.connections} chats={info.chats} refresh={refreshHandler}/>
+                <div className={styles.conrow}>
+                    <OverlayTrigger overlay={<Tooltip  id="tooltip-disabled">Manage Matches</Tooltip>}>
+                        <div onClick={() => setOpenConnect(!openConnect)} className={styles.manageBtn}>
+                            <img src={manageMenu} alt="Button that allows user to delete matches" />
+                        </div>
+                    </OverlayTrigger>
+                    <ConnectList viewAccount={viewAccountHandler}  connects={info.connections} chats={info.chats} refresh={refreshHandler} />
+                </div>
+
             </div>
         </Template>
     )
