@@ -1,24 +1,30 @@
 import React, { useState } from 'react'
 import styles from './styles/core/compIndex.module.scss'
 import axios from 'axios'
-import { OverlayTrigger, Tooltip, Modal, Button, InputGroup, FormControl} from 'react-bootstrap'
+import { OverlayTrigger, Tooltip, Modal, Button, InputGroup, FormControl, Image} from 'react-bootstrap'
 import deleteIcon from '../images/trash.png'
 import avatarIcon from '../images/add-user.png'
 import textIcon  from '../images/text.png'
 import menuIcon from '../images/menuImg.png'
 import closeMenu from '../images/closeImgMenu.png'
-const Image = ({imageId, url, caption, token, account, refresh}) => {
+const ImageInProfile = ({imageId, url, caption, token, account, refresh}) => {
 
     const [comment, setComment] = useState('')
     const [commentType, setCommentType] = useState('info') //info, success, fail
     const [isDisplayed, setIsDisplayed] = useState(false)
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(false)
+    const [showDelete, setShowDelete] = useState(false)
+    const [showAvatar, setShowAvatar] = useState(false)
     const [captionNew, setCaptionNew] = useState(caption)
     
     
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-  
+
+    const openDelete= () => setShowDelete(true)
+    const cancelDelete = () => setShowDelete(false)
+    const openAvatar= () => setShowAvatar(true)
+    const cancelAvatar = () => setShowAvatar(false)
     //sets the picture as a profile picture
     const setAvatarHandler = (url) => {
         axios({
@@ -97,7 +103,7 @@ const Image = ({imageId, url, caption, token, account, refresh}) => {
 
                 <OverlayTrigger overlay={<Tooltip  id="tooltip-disabled">set as avatar</Tooltip>}>
                     <button 
-                        onClick={()=> setAvatarHandler(url)} 
+                        onClick={openAvatar}
                         className={"btn btn-link mx-4 "+styles.iconBtn}
                     >
                         <img src={avatarIcon} alt="Add avatar icon" />
@@ -106,7 +112,7 @@ const Image = ({imageId, url, caption, token, account, refresh}) => {
 
                 <OverlayTrigger overlay={<Tooltip  id="tooltip-disabled">remove photo</Tooltip>}>
                     <button 
-                        onClick={() => deleteImage(imageId)} 
+                        onClick={openDelete}
                         className={"btn btn-link mx-4 "+styles.delBtn}
                     >
                         <img src={deleteIcon} alt="Delete image icon" />
@@ -146,30 +152,61 @@ const Image = ({imageId, url, caption, token, account, refresh}) => {
                 </div>
             </div>
             <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Update image caption below</Modal.Title>
+                <Modal.Header closeButton style={{background: "slategrey", color: "white"}}>
+                    <Modal.Title>Update Caption</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body style={{display:"flex",flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                    <Image src={url} fluid alt="Displaying the image about to be edited" className="mb-3"/>
                     <InputGroup className="mb-3">
-                        <InputGroup.Prepend>
-                            <InputGroup.Text id="inputGroup-sizing-default">Caption</InputGroup.Text>
-                        </InputGroup.Prepend>
+         
                         <FormControl
                         aria-label="Default"
                         aria-describedby="inputGroup-sizing-default"
                         value={captionNew}
                         onChange={(e) => setCaptionNew(e.target.value)}
+                        style={{background: "linen", width: '100%', border: "2px solid goldenrod",fontSize: "20px", lineHeight: '2rem', color: "slategrey"}}
                         />
                         <small>To edit caption simply type a new caption above and click submit</small>
-                        <small>If you dont want to change the caption click cancel</small>
                     </InputGroup>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                <Modal.Footer style={{background: "slategrey", color: "white",}}>
+                    <Button variant="dark" onClick={handleClose}>
                         Cancel
                     </Button>
                     <Button variant="primary" onClick={()=> updateImgHandler()}>
-                        Submit
+                        Update
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showDelete} onHide={cancelDelete}>
+                <Modal.Header closeButton style={{background: "darkred", color: "white"}}>
+                    <Modal.Title>Are you sure you want to delete this image ?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body style={{display:"flex",flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                    <Image src={url} fluid alt="Displaying the image about to be edited" className="mb-3"/>
+                </Modal.Body>
+                <Modal.Footer style={{background: "darkred", color: "white",}}>
+                    <Button variant="secondary" onClick={cancelDelete}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={() => deleteImage(imageId)}>
+                        Remove
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showAvatar} onHide={cancelAvatar}>
+                <Modal.Header closeButton style={{background: "steelblue", color: "white"}}>
+                    <Modal.Title>Are you sure you want to set this image as your profile picture ?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body style={{display:"flex",flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                    <Image src={url} fluid alt="Displaying the image about to be edited" className="mb-3"/>
+                </Modal.Body>
+                <Modal.Footer style={{background: "steelblue", color: "white",}}>
+                    <Button variant="secondary" onClick={cancelAvatar}>
+                        Cancel
+                    </Button>
+                    <Button variant="warning" onClick={()=> setAvatarHandler(url)} >
+                        Set Avatar
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -177,4 +214,4 @@ const Image = ({imageId, url, caption, token, account, refresh}) => {
     )
 }
 
-export default Image;
+export default ImageInProfile;
